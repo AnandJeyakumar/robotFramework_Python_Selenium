@@ -1,55 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-05T21:35:47.630848" rpa="false" schemaversion="5">
-<suite id="s1" name="dradandDrop" source="C:\robotFramework\Automation\dradandDrop.robot">
-<test id="s1-t1" name="dradAndDrop" line="6">
+<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-06T22:50:20.559213" rpa="false" schemaversion="5">
+<suite id="s1" name="DDT1" source="C:\robotFramework\Resources\DDT1.robot">
+<kw name="LanchBrowser" owner="Resources" type="SETUP">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-12-05T21:35:48.156190" level="INFO">Opening browser 'chrome' to base url 'https://testautomationpractice.blogspot.com/'.</msg>
-<arg>https://testautomationpractice.blogspot.com/</arg>
-<arg>chrome</arg>
+<msg time="2024-12-06T22:50:21.651596" level="INFO">Opening browser 'firefox' to base url 'https://admin-demo.nopcommerce.com/admin/'.</msg>
+<arg>${url}</arg>
+<arg>${browser}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-12-05T21:35:48.154902" elapsed="7.743133"/>
+<status status="PASS" start="2024-12-06T22:50:21.651426" elapsed="12.429679"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-12-05T21:35:55.898035" elapsed="0.085163"/>
+<status status="PASS" start="2024-12-06T22:50:34.082628" elapsed="0.020221"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-12-05T21:35:58.984864" level="INFO">Slept 3 seconds.</msg>
+<msg time="2024-12-06T22:50:37.108638" level="INFO">Slept 3 seconds.</msg>
 <arg>3</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-12-05T21:35:55.983198" elapsed="3.001666"/>
+<status status="PASS" start="2024-12-06T22:50:34.107387" elapsed="3.001251"/>
 </kw>
-<kw name="Drag And Drop" owner="SeleniumLibrary">
-<arg>id=draggable</arg>
-<arg>id=droppable</arg>
-<doc>Drags the element identified by ``locator`` into the ``target`` element.</doc>
-<status status="PASS" start="2024-12-05T21:35:58.985431" elapsed="0.762973"/>
+<status status="PASS" start="2024-12-06T22:50:21.649263" elapsed="15.459375"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-12-05T21:36:03.750416" level="INFO">Slept 4 seconds.</msg>
-<arg>4</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-12-05T21:35:59.748913" elapsed="4.001503"/>
+<test id="s1-t1" name="Right Email Wrong Password" line="9">
+<kw name="Invalid Login">
+<kw name="inputUserName" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:37.116668" level="INFO">Typing text 'admin@yourstore.com' into text field 'id=Email'.</msg>
+<arg>id=Email</arg>
+<arg>${userName}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:37.116668" elapsed="0.245540"/>
 </kw>
-<kw name="Element Text Should Be" owner="SeleniumLibrary">
-<msg time="2024-12-05T21:36:03.752460" level="INFO">Verifying element 'id=droppable' contains exact text 'Dropped!'.</msg>
-<arg>id=droppable</arg>
-<arg>Dropped!</arg>
-<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
-<status status="PASS" start="2024-12-05T21:36:03.752460" elapsed="0.061897"/>
+<arg>${userName}</arg>
+<status status="PASS" start="2024-12-06T22:50:37.113123" elapsed="0.249085"/>
 </kw>
-<status status="PASS" start="2024-12-05T21:35:48.152616" elapsed="15.662839"/>
+<kw name="inputPassword" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:37.363242" level="INFO">Typing text 'admin1' into text field 'id=Password'.</msg>
+<arg>id=Password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:37.363242" elapsed="0.093269"/>
+</kw>
+<arg>${password}</arg>
+<status status="PASS" start="2024-12-06T22:50:37.363242" elapsed="0.093269"/>
+</kw>
+<kw name="clickLoginButton" owner="Resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:37.457801" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<arg>xpath://button[@type='submit']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:37.457801" elapsed="5.397894"/>
+</kw>
+<status status="PASS" start="2024-12-06T22:50:37.457801" elapsed="5.397894"/>
+</kw>
+<kw name="errorMessageShouldBeVisible" owner="Resources">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:42.964671" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-06T22:50:42.964671" level="FAIL">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</msg>
+<arg>xpath://div[@class='message-error validation-summary-errors']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="FAIL" start="2024-12-06T22:50:42.859273" elapsed="0.109448">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>Login was unsuccessful. Please correct the errors and try again.</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-12-06T22:50:42.968721" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-12-06T22:50:42.858218" elapsed="0.110503">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<arg>admin@yourstore.com</arg>
+<arg>admin1</arg>
+<status status="FAIL" start="2024-12-06T22:50:37.113123" elapsed="5.859160">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<status status="FAIL" start="2024-12-06T22:50:37.108638" elapsed="5.864670">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
 </test>
-<status status="PASS" start="2024-12-05T21:35:47.633110" elapsed="16.184931"/>
+<test id="s1-t2" name="Wrong Email Right Password" line="11">
+<kw name="Invalid Login">
+<kw name="inputUserName" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:42.976373" level="INFO">Typing text 'admin@yourstore111.com' into text field 'id=Email'.</msg>
+<arg>id=Email</arg>
+<arg>${userName}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:42.976373" elapsed="0.068269"/>
+</kw>
+<arg>${userName}</arg>
+<status status="PASS" start="2024-12-06T22:50:42.976373" elapsed="0.068269"/>
+</kw>
+<kw name="inputPassword" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:43.048543" level="INFO">Typing text 'admin' into text field 'id=Password'.</msg>
+<arg>id=Password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:43.048543" elapsed="0.050177"/>
+</kw>
+<arg>${password}</arg>
+<status status="PASS" start="2024-12-06T22:50:43.044642" elapsed="0.054078"/>
+</kw>
+<kw name="clickLoginButton" owner="Resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:43.098720" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<arg>xpath://button[@type='submit']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-06T22:50:43.098720" elapsed="0.244615"/>
+</kw>
+<status status="PASS" start="2024-12-06T22:50:43.098720" elapsed="0.245951"/>
+</kw>
+<kw name="errorMessageShouldBeVisible" owner="Resources">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-06T22:50:43.487810" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-06T22:50:43.487810" level="FAIL">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</msg>
+<arg>xpath://div[@class='message-error validation-summary-errors']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="FAIL" start="2024-12-06T22:50:43.347527" elapsed="0.141330">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>Login was unsuccessful. Please correct the errors and try again.</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2024-12-06T22:50:43.488857" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-12-06T22:50:43.344671" elapsed="0.144186">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<arg>admin@yourstore111.com</arg>
+<arg>admin</arg>
+<status status="FAIL" start="2024-12-06T22:50:42.976373" elapsed="0.512484">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</kw>
+<status status="FAIL" start="2024-12-06T22:50:42.973308" elapsed="0.515549">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+</test>
+<kw name="closingBrowser" owner="Resources" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2024-12-06T22:50:43.494367" elapsed="3.911917"/>
+</kw>
+<status status="PASS" start="2024-12-06T22:50:43.493821" elapsed="3.912463"/>
+</kw>
+<status status="FAIL" start="2024-12-06T22:50:20.569867" elapsed="26.836417"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="dradandDrop">dradandDrop</stat>
+<stat pass="0" fail="2" skip="0" id="s1" name="DDT1">DDT1</stat>
 </suite>
 </statistics>
 <errors>
