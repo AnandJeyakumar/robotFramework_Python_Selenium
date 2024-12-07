@@ -1,0 +1,22 @@
+1733558071749	geckodriver	INFO	Listening on 127.0.0.1:59392
+1733558074845	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59393" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\USER\\AppData\\Local\\Temp\\rust_mozprofilenXUar7"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+Dynamically enable window occlusion 0
+1733558075393	Marionette	INFO	Marionette enabled
+1733558075700	Marionette	INFO	Listening on port 59402
+WebDriver BiDi listening on ws://127.0.0.1:59393
+Read port: 59402
+1733558076058	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:59393/devtools/browser/34ea5f38-793b-49fb-9697-533e715e81ba
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://admin-demo.nopcommerce.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://admin-demo.nopcommerce.com."
+JavaScript warning: https://admin-demo.nopcommerce.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js, line 1: Script terminated by timeout at:
+c@https://admin-demo.nopcommerce.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js:1:9349
+
+JavaScript warning: https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_api/v1?ray=8ee2f33ccb8cce8d&lang=auto line 1 > Function, line 418: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1733558091372	Marionette	INFO	Stopped listening on port 59402
+JavaScript warning: https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_api/v1?ray=8ee2f33ccb8cce8d&lang=auto, line 1: Script terminated by timeout at:
+@https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_api/v1?ray=8ee2f33ccb8cce8d&lang=auto:1:16460
+
+Dynamically enable window occlusion 1

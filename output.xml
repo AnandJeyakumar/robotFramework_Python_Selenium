@@ -1,153 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-06T22:50:20.559213" rpa="false" schemaversion="5">
-<suite id="s1" name="DDT1" source="C:\robotFramework\Resources\DDT1.robot">
+<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-07T11:55:04.320399" rpa="false" schemaversion="5">
+<suite id="s1" name="DDT2" source="C:\robotFramework\Resources\DDT2.robot">
 <kw name="LanchBrowser" owner="Resources" type="SETUP">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:21.651596" level="INFO">Opening browser 'firefox' to base url 'https://admin-demo.nopcommerce.com/admin/'.</msg>
+<msg time="2024-12-07T11:55:06.876509" level="INFO">Opening browser 'firefox' to base url 'https://admin-demo.nopcommerce.com/admin/'.</msg>
 <arg>${url}</arg>
 <arg>${browser}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-12-06T22:50:21.651426" elapsed="12.429679"/>
+<status status="PASS" start="2024-12-07T11:55:06.875424" elapsed="24.568865"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-12-06T22:50:34.082628" elapsed="0.020221"/>
+<status status="PASS" start="2024-12-07T11:55:31.444289" elapsed="0.045856"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-12-06T22:50:37.108638" level="INFO">Slept 3 seconds.</msg>
+<msg time="2024-12-07T11:55:34.490508" level="INFO">Slept 3 seconds.</msg>
 <arg>3</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-12-06T22:50:34.107387" elapsed="3.001251"/>
+<status status="PASS" start="2024-12-07T11:55:31.490145" elapsed="3.000363"/>
 </kw>
-<status status="PASS" start="2024-12-06T22:50:21.649263" elapsed="15.459375"/>
+<status status="PASS" start="2024-12-07T11:55:06.874275" elapsed="27.616233"/>
 </kw>
-<test id="s1-t1" name="Right Email Wrong Password" line="9">
+<test id="s1-t1" name="LoginTest_By_Excel" line="10">
 <kw name="Invalid Login">
 <kw name="inputUserName" owner="Resources">
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:37.116668" level="INFO">Typing text 'admin@yourstore.com' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:34.492241" level="INFO">Typing text 'admin@yourstore.com' into text field 'id=Email'.</msg>
 <arg>id=Email</arg>
 <arg>${userName}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:37.116668" elapsed="0.245540"/>
+<status status="PASS" start="2024-12-07T11:55:34.492241" elapsed="0.125298"/>
 </kw>
 <arg>${userName}</arg>
-<status status="PASS" start="2024-12-06T22:50:37.113123" elapsed="0.249085"/>
+<status status="PASS" start="2024-12-07T11:55:34.492241" elapsed="0.125298"/>
 </kw>
 <kw name="inputPassword" owner="Resources">
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:37.363242" level="INFO">Typing text 'admin1' into text field 'id=Password'.</msg>
+<msg time="2024-12-07T11:55:34.617539" level="INFO">Typing text 'adminqq' into text field 'id=Password'.</msg>
 <arg>id=Password</arg>
 <arg>${password}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:37.363242" elapsed="0.093269"/>
+<status status="PASS" start="2024-12-07T11:55:34.617539" elapsed="0.063489"/>
 </kw>
 <arg>${password}</arg>
-<status status="PASS" start="2024-12-06T22:50:37.363242" elapsed="0.093269"/>
+<status status="PASS" start="2024-12-07T11:55:34.617539" elapsed="0.063489"/>
 </kw>
 <kw name="clickLoginButton" owner="Resources">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:37.457801" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<msg time="2024-12-07T11:55:34.681028" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
 <arg>xpath://button[@type='submit']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:37.457801" elapsed="5.397894"/>
+<status status="PASS" start="2024-12-07T11:55:34.681028" elapsed="1.723051"/>
 </kw>
-<status status="PASS" start="2024-12-06T22:50:37.457801" elapsed="5.397894"/>
+<status status="PASS" start="2024-12-07T11:55:34.681028" elapsed="1.724698"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-12-07T11:55:38.407908" level="INFO">Slept 2 seconds.</msg>
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-12-07T11:55:36.406963" elapsed="2.001459"/>
 </kw>
 <kw name="errorMessageShouldBeVisible" owner="Resources">
 <kw name="Element Should Be Visible" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:42.964671" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-12-06T22:50:42.964671" level="FAIL">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</msg>
+<msg time="2024-12-07T11:55:38.719262" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-42.png"&gt;&lt;img src="selenium-screenshot-42.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-07T11:55:38.720508" level="FAIL">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</msg>
 <arg>xpath://div[@class='message-error validation-summary-errors']</arg>
 <doc>Verifies that the element identified by ``locator`` is visible.</doc>
-<status status="FAIL" start="2024-12-06T22:50:42.859273" elapsed="0.109448">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<status status="FAIL" start="2024-12-07T11:55:38.408422" elapsed="0.326621">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
 <arg>Login was unsuccessful. Please correct the errors and try again.</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="NOT RUN" start="2024-12-06T22:50:42.968721" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-12-07T11:55:38.735043" elapsed="0.000000"/>
 </kw>
-<status status="FAIL" start="2024-12-06T22:50:42.858218" elapsed="0.110503">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<status status="FAIL" start="2024-12-07T11:55:38.408422" elapsed="0.326621">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
 </kw>
-<arg>admin@yourstore.com</arg>
-<arg>admin1</arg>
-<status status="FAIL" start="2024-12-06T22:50:37.113123" elapsed="5.859160">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<arg>userName=admin@yourstore.com</arg>
+<arg>password=adminqq</arg>
+<status status="FAIL" start="2024-12-07T11:55:34.492241" elapsed="4.242802">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
 </kw>
-<status status="FAIL" start="2024-12-06T22:50:37.108638" elapsed="5.864670">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<status status="FAIL" start="2024-12-07T11:55:34.490508" elapsed="4.252815">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
 </test>
-<test id="s1-t2" name="Wrong Email Right Password" line="11">
+<test id="s1-t2" name="LoginTest_By_Excel" line="10">
 <kw name="Invalid Login">
 <kw name="inputUserName" owner="Resources">
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:42.976373" level="INFO">Typing text 'admin@yourstore111.com' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:38.775828" level="INFO">Typing text 'admin@yiyi.com' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:39.749857" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-43.png"&gt;&lt;img src="selenium-screenshot-43.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-07T11:55:39.749857" level="FAIL">Element with locator 'id=Email' not found.</msg>
 <arg>id=Email</arg>
 <arg>${userName}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:42.976373" elapsed="0.068269"/>
+<status status="FAIL" start="2024-12-07T11:55:38.775828" elapsed="0.987361">Element with locator 'id=Email' not found.</status>
 </kw>
 <arg>${userName}</arg>
-<status status="PASS" start="2024-12-06T22:50:42.976373" elapsed="0.068269"/>
+<status status="FAIL" start="2024-12-07T11:55:38.773265" elapsed="0.989924">Element with locator 'id=Email' not found.</status>
 </kw>
 <kw name="inputPassword" owner="Resources">
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:43.048543" level="INFO">Typing text 'admin' into text field 'id=Password'.</msg>
-<arg>id=Password</arg>
 <arg>${password}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:43.048543" elapsed="0.050177"/>
-</kw>
-<arg>${password}</arg>
-<status status="PASS" start="2024-12-06T22:50:43.044642" elapsed="0.054078"/>
+<status status="NOT RUN" start="2024-12-07T11:55:39.765204" elapsed="0.001017"/>
 </kw>
 <kw name="clickLoginButton" owner="Resources">
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:43.098720" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
-<arg>xpath://button[@type='submit']</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-06T22:50:43.098720" elapsed="0.244615"/>
+<status status="NOT RUN" start="2024-12-07T11:55:39.766778" elapsed="0.000000"/>
 </kw>
-<status status="PASS" start="2024-12-06T22:50:43.098720" elapsed="0.245951"/>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-12-07T11:55:39.766778" elapsed="0.000000"/>
 </kw>
 <kw name="errorMessageShouldBeVisible" owner="Resources">
-<kw name="Element Should Be Visible" owner="SeleniumLibrary">
-<msg time="2024-12-06T22:50:43.487810" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-12-06T22:50:43.487810" level="FAIL">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</msg>
-<arg>xpath://div[@class='message-error validation-summary-errors']</arg>
-<doc>Verifies that the element identified by ``locator`` is visible.</doc>
-<status status="FAIL" start="2024-12-06T22:50:43.347527" elapsed="0.141330">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<status status="NOT RUN" start="2024-12-07T11:55:39.766778" elapsed="0.000000"/>
 </kw>
-<kw name="Page Should Contain" owner="SeleniumLibrary">
-<arg>Login was unsuccessful. Please correct the errors and try again.</arg>
-<doc>Verifies that current page contains ``text``.</doc>
-<status status="NOT RUN" start="2024-12-06T22:50:43.488857" elapsed="0.000000"/>
+<arg>userName=admin@yiyi.com</arg>
+<arg>password=admin</arg>
+<status status="FAIL" start="2024-12-07T11:55:38.767629" elapsed="0.999149">Element with locator 'id=Email' not found.</status>
 </kw>
-<status status="FAIL" start="2024-12-06T22:50:43.344671" elapsed="0.144186">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<status status="FAIL" start="2024-12-07T11:55:38.751568" elapsed="1.015210">Element with locator 'id=Email' not found.</status>
+</test>
+<test id="s1-t3" name="LoginTest_By_Excel" line="10">
+<kw name="Invalid Login">
+<kw name="inputUserName" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-07T11:55:39.780915" level="INFO">Typing text 'admin@yourstore.com' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:40.018634" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-44.png"&gt;&lt;img src="selenium-screenshot-44.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-07T11:55:40.023493" level="FAIL">Element with locator 'id=Email' not found.</msg>
+<arg>id=Email</arg>
+<arg>${userName}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2024-12-07T11:55:39.780915" elapsed="0.247225">Element with locator 'id=Email' not found.</status>
 </kw>
-<arg>admin@yourstore111.com</arg>
-<arg>admin</arg>
-<status status="FAIL" start="2024-12-06T22:50:42.976373" elapsed="0.512484">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<arg>${userName}</arg>
+<status status="FAIL" start="2024-12-07T11:55:39.780915" elapsed="0.248920">Element with locator 'id=Email' not found.</status>
 </kw>
-<status status="FAIL" start="2024-12-06T22:50:42.973308" elapsed="0.515549">Element with locator 'xpath://div[@class='message-error validation-summary-errors']' not found.</status>
+<kw name="inputPassword" owner="Resources">
+<arg>${password}</arg>
+<status status="NOT RUN" start="2024-12-07T11:55:40.031738" elapsed="0.000000"/>
+</kw>
+<kw name="clickLoginButton" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.031738" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-12-07T11:55:40.034146" elapsed="0.000000"/>
+</kw>
+<kw name="errorMessageShouldBeVisible" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.035350" elapsed="0.000000"/>
+</kw>
+<arg>userName=admin@yourstore.com</arg>
+<arg>password=${empty}</arg>
+<status status="FAIL" start="2024-12-07T11:55:39.780915" elapsed="0.254435">Element with locator 'id=Email' not found.</status>
+</kw>
+<status status="FAIL" start="2024-12-07T11:55:39.775352" elapsed="0.263002">Element with locator 'id=Email' not found.</status>
+</test>
+<test id="s1-t4" name="LoginTest_By_Excel" line="10">
+<kw name="Invalid Login">
+<kw name="inputUserName" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-07T11:55:40.065573" level="INFO">Typing text '' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:40.493648" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-45.png"&gt;&lt;img src="selenium-screenshot-45.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-07T11:55:40.493648" level="FAIL">Element with locator 'id=Email' not found.</msg>
+<arg>id=Email</arg>
+<arg>${userName}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2024-12-07T11:55:40.064557" elapsed="0.433098">Element with locator 'id=Email' not found.</status>
+</kw>
+<arg>${userName}</arg>
+<status status="FAIL" start="2024-12-07T11:55:40.061485" elapsed="0.436170">Element with locator 'id=Email' not found.</status>
+</kw>
+<kw name="inputPassword" owner="Resources">
+<arg>${password}</arg>
+<status status="NOT RUN" start="2024-12-07T11:55:40.497655" elapsed="0.000000"/>
+</kw>
+<kw name="clickLoginButton" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.497655" elapsed="0.004105"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-12-07T11:55:40.502127" elapsed="0.000000"/>
+</kw>
+<kw name="errorMessageShouldBeVisible" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.502127" elapsed="0.000000"/>
+</kw>
+<arg>userName=${empty}</arg>
+<arg>password=admin</arg>
+<status status="FAIL" start="2024-12-07T11:55:40.055899" elapsed="0.448538">Element with locator 'id=Email' not found.</status>
+</kw>
+<status status="FAIL" start="2024-12-07T11:55:40.043730" elapsed="0.466740">Element with locator 'id=Email' not found.</status>
+</test>
+<test id="s1-t5" name="LoginTest_By_Excel" line="10">
+<kw name="Invalid Login">
+<kw name="inputUserName" owner="Resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-07T11:55:40.547787" level="INFO">Typing text 'admin@yiyi.com' into text field 'id=Email'.</msg>
+<msg time="2024-12-07T11:55:40.958095" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-46.png"&gt;&lt;img src="selenium-screenshot-46.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-12-07T11:55:40.958095" level="FAIL">Element with locator 'id=Email' not found.</msg>
+<arg>id=Email</arg>
+<arg>${userName}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2024-12-07T11:55:40.545970" elapsed="0.417754">Element with locator 'id=Email' not found.</status>
+</kw>
+<arg>${userName}</arg>
+<status status="FAIL" start="2024-12-07T11:55:40.543367" elapsed="0.422874">Element with locator 'id=Email' not found.</status>
+</kw>
+<kw name="inputPassword" owner="Resources">
+<arg>${password}</arg>
+<status status="NOT RUN" start="2024-12-07T11:55:40.967736" elapsed="0.000000"/>
+</kw>
+<kw name="clickLoginButton" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.969092" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-12-07T11:55:40.970365" elapsed="0.000000"/>
+</kw>
+<kw name="errorMessageShouldBeVisible" owner="Resources">
+<status status="NOT RUN" start="2024-12-07T11:55:40.971588" elapsed="0.000452"/>
+</kw>
+<arg>userName=admin@yiyi.com</arg>
+<arg>password=yco</arg>
+<status status="FAIL" start="2024-12-07T11:55:40.540911" elapsed="0.431129">Element with locator 'id=Email' not found.</status>
+</kw>
+<status status="FAIL" start="2024-12-07T11:55:40.529908" elapsed="0.455209">Element with locator 'id=Email' not found.</status>
 </test>
 <kw name="closingBrowser" owner="Resources" type="TEARDOWN">
 <kw name="Close All Browsers" owner="SeleniumLibrary">
+<msg time="2024-12-07T11:55:47.777940" level="ERROR">When closing browser, received exception: Execution terminated by signal</msg>
+<msg time="2024-12-07T11:55:47.780578" level="INFO">Cannot capture screenshot because no browser is open.</msg>
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" start="2024-12-06T22:50:43.494367" elapsed="3.911917"/>
+<status status="FAIL" start="2024-12-07T11:55:41.006444" elapsed="6.775187">Execution terminated by signal</status>
 </kw>
-<status status="PASS" start="2024-12-06T22:50:43.493821" elapsed="3.912463"/>
+<status status="FAIL" start="2024-12-07T11:55:41.001848" elapsed="6.779783">Execution terminated by signal</status>
 </kw>
-<status status="FAIL" start="2024-12-06T22:50:20.569867" elapsed="26.836417"/>
+<status status="FAIL" start="2024-12-07T11:55:04.322561" elapsed="43.460082">Suite teardown failed:
+Execution terminated by signal</status>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="2" skip="0">All Tests</stat>
+<stat pass="0" fail="5" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="2" skip="0" id="s1" name="DDT1">DDT1</stat>
+<stat pass="0" fail="5" skip="0" id="s1" name="DDT2">DDT2</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2024-12-07T11:55:38.747544" level="WARN">Multiple tests with name 'LoginTest_By_Excel' executed in suite 'DDT2'.</msg>
+<msg time="2024-12-07T11:55:39.772866" level="WARN">Multiple tests with name 'LoginTest_By_Excel' executed in suite 'DDT2'.</msg>
+<msg time="2024-12-07T11:55:40.042450" level="WARN">Multiple tests with name 'LoginTest_By_Excel' executed in suite 'DDT2'.</msg>
+<msg time="2024-12-07T11:55:40.524526" level="WARN">Multiple tests with name 'LoginTest_By_Excel' executed in suite 'DDT2'.</msg>
+<msg time="2024-12-07T11:55:47.777940" level="ERROR">When closing browser, received exception: Execution terminated by signal</msg>
 </errors>
 </robot>
