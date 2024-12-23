@@ -5,6 +5,7 @@ stages:
 
 test:
   stage: test
+  when: manual  # This allows manual triggering of the job
   before_script:
     # Install necessary packages
     - apt-get update
@@ -13,7 +14,7 @@ test:
         gnupg \
         curl \
         unzip \
-        xvfb \
+        xvfb
     # Install Robot Framework and its dependencies
     - pip install --upgrade pip
     - pip install robotframework
