@@ -43,5 +43,4 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
           HEADLESS: "true"  # Recommended for GitHub Actions
         run: |
-          robot --outputdir results tests/
-
+          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true tests/
