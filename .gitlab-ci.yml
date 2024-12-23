@@ -5,54 +5,26 @@ stages:
 
 test:
   stage: test
-  when: manual  # This allows manual triggering of the job
   before_script:
     # Update package lists and install basic utilities first
     - apt-get update -y
-    - apt-get install -y --no-install-recommends apt-utils
+    - echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free" | tee -a /etc/apt/sources.list
+    - apt-get update -y
+    # Install required packages
     - apt-get install -y --no-install-recommends \
         curl \
         gnupg \
         lsb-release \
         apt-transport-https \
         ca-certificates
-    # Add the Google Chrome repository
-    - curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | tee /etc/apt/trusted.gpg.d/google.asc
-    - DISTRO=$(lsb_release -c | awk '{print $2}')
-    - echo "deb [signed-by=/etc/apt/trusted.gpg.d/google.asc] https://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
-    - apt-get update -y
-    - apt-get install -y --no-install-recommends \
-        libxss1 \
-        libappindicator3-1 \
-        libindicator7 \
-        fonts-liberation \
-        libnss3 \
-        libgdk-pixbuf2.0-0 \
-        libnspr4 \
-        xdg-utils \
-        libgbm-dev \
-        libasound2 \
-        libatk-bridge2.0-0 \
-        libatk1.0-0 \
-        libcups2 \
-        libxcomposite1 \
-        libxrandr2 \
-        libxi6 \
-        libxtst6 \
-        libnss3-dev \
-        libcurl4 \
-        google-chrome-stable
-    # Install Robot Framework and its dependencies
+  script:
+    # Run the tests
     - pip install --upgrade pip
     - pip install robotframework
     - pip install robotframework-seleniumlibrary
     - pip install robotframework-jsonlibrary
     - pip install robotframework-requests
-
-  script:
-    # Run the tests using Xvfb for a virtual display
     - xvfb-run --auto-servernum robot tests/
-
   artifacts:
     paths:
       - results/
