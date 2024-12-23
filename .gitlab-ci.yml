@@ -23,7 +23,7 @@ test:
 
   script:
     # Run tests in headless mode with xvfb
-    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true tests/
+    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true --variable NO_SANDBOX:true --variable START_MAXIMIZED:true --variable USER_DATA_DIR:/tmp/chrome_data tests/
 
   artifacts:
     paths:
