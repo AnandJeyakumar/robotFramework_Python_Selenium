@@ -1,0 +1,47 @@
+name: Robot Framework UI Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Specify the desired Python version
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install robotframework
+          pip install robotframework-seleniumlibrary
+          pip install robotframework-jsonlibrary
+          pip install robotframework-requests
+          pip install chromedriver-autoinstaller
+
+      # Install Chrome for Selenium tests
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome-stable --version
+
+      # Run Robot Framework tests
+      - name: Run Robot Framework Tests
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+          HEADLESS: "true"  # Recommended for GitHub Actions
+        run: |
+          robot --outputdir results tests/
+
