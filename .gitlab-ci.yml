@@ -7,7 +7,7 @@ test:
   before_script:
     # Install system dependencies
     - apt-get update -y
-    - apt-get install -y wget gnupg curl xvfb libxss1 libappindicator3-1 libindicator7 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libxcomposite1 libxrandr2 libxi6 libxtst6 libnss3-dev libcurl4
+    - apt-get install -y wget gnupg curl xvfb libxss1 libayatana-appindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libxcomposite1 libxrandr2 libxi6 libxtst6 libnss3-dev libcurl4
     # Install Google Chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
