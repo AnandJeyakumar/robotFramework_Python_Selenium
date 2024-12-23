@@ -48,10 +48,22 @@ jobs:
           sudo apt-get install -y google-chrome-stable
           google-chrome-stable --version
 
-      # Run Robot Framework tests
-      - name: Run Robot Framework Tests
+      - name: Check Chrome Path and Version
+        run: |
+          echo "Chrome binary path: $CHROME_BIN"
+          $CHROME_BIN --version
+
+      - name: Run UI Tests in Headless Mode
         env:
           CHROME_BIN: /usr/bin/google-chrome
-          HEADLESS: "true"  # Recommended for GitHub Actions
+          HEADLESS: "true" # Recommended for GitHub Actions
         run: |
-          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true tests/
+          xvfb-run --auto-servernum go test -v ./...
+
+      # Run Robot Framework tests
+#      - name: Run Robot Framework Tests
+#        env:
+#          CHROME_BIN: /usr/bin/google-chrome
+#          HEADLESS: "true"  # Recommended for GitHub Actions
+#        run: |
+#          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true tests/
