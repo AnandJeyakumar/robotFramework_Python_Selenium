@@ -58,7 +58,7 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
           HEADLESS: "true" # Recommended for GitHub Actions
         run: |
-          xvfb-run --auto-servernum go test -v ./...
+          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true tests/
 
       # Run Robot Framework tests
 #      - name: Run Robot Framework Tests
