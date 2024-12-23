@@ -7,14 +7,15 @@ test:
   stage: test
   when: manual  # This allows manual triggering of the job
   before_script:
-    # Update and install the dependencies
+    # Update package lists and install basic utilities first
     - apt-get update -y
+    - apt-get install -y --no-install-recommends apt-utils
     - apt-get install -y --no-install-recommends \
-        apt-transport-https \
-        ca-certificates \
         curl \
         gnupg \
-        lsb-release
+        lsb-release \
+        apt-transport-https \
+        ca-certificates
     # Add the Google Chrome repository
     - curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | tee /etc/apt/trusted.gpg.d/google.asc
     - DISTRO=$(lsb_release -c | awk '{print $2}')
