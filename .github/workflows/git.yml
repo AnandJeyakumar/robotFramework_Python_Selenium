@@ -37,10 +37,24 @@ jobs:
           sudo apt-get install -y google-chrome-stable
           google-chrome-stable --version
 
+      # Install additional dependencies for headless Chrome
+      - name: Install Chrome Dependencies
+        run: |
+          sudo apt-get install -y \
+            libxss1 \
+            libappindicator3-1 \
+            libindicator7 \
+            fonts-liberation \
+            libnss3 \
+            libgdk-pixbuf2.0-0 \
+            libnspr4 \
+            xdg-utils \
+            wget
+
       # Run Robot Framework tests
       - name: Run Robot Framework Tests
         env:
           CHROME_BIN: /usr/bin/google-chrome
           HEADLESS: "true"  # Recommended for GitHub Actions
         run: |
-          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true tests/
+          robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true tests/
