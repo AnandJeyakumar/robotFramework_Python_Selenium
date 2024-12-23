@@ -7,7 +7,18 @@ test:
   stage: test
   when: manual  # This allows manual triggering of the job
   before_script:
-    # Update and install dependencies
+    # Update and install the dependencies
+    - apt-get update -y
+    - apt-get install -y --no-install-recommends \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
+    # Add the Google Chrome repository
+    - curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | tee /etc/apt/trusted.gpg.d/google.asc
+    - DISTRO=$(lsb_release -c | awk '{print $2}')
+    - echo "deb [signed-by=/etc/apt/trusted.gpg.d/google.asc] https://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
     - apt-get update -y
     - apt-get install -y --no-install-recommends \
         libxss1 \
