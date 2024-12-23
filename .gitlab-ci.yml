@@ -9,7 +9,7 @@ test:
   before_script:
     # Update and install dependencies
     - apt-get update -y
-    - apt-get install -y \
+    - apt-get install -y --no-install-recommends \
         wget \
         gnupg \
         curl \
@@ -33,7 +33,9 @@ test:
         libxi6 \
         libxtst6 \
         libnss3-dev \
-        libcurl4
+        libcurl4 \
+        ca-certificates \
+        lsb-release
     # Install Robot Framework and its dependencies
     - pip install --upgrade pip
     - pip install robotframework
