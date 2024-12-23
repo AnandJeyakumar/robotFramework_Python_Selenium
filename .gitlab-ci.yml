@@ -3,39 +3,17 @@ stages:
 
 test:
   stage: test
-  image: python:3.9-slim
+  image: mcr.microsoft.com/playwright:v1.43.1-jammy  # Using the Playwright image
   before_script:
-    # Install dependencies
+    # Install Python dependencies
     - apt-get update
-    - apt-get install -y wget gnupg curl unzip
-    - apt-get install -y google-chrome-stable
-    - apt-get install -y \
-        libxss1 \
-        libappindicator3-1 \
-        libindicator7 \
-        fonts-liberation \
-        libnss3 \
-        libgdk-pixbuf2.0-0 \
-        libnspr4 \
-        xdg-utils \
-        libgbm-dev \
-        libasound2 \
-        libatk-bridge2.0-0 \
-        libatk1.0-0 \
-        libcups2 \
-        libxcomposite1 \
-        libxrandr2 \
-        libxi6 \
-        libxtst6 \
-        libnss3-dev \
-        libcurl4
-    - apt-get install -y xvfb
-    - pip install --upgrade pip
-    - pip install robotframework
-    - pip install robotframework-seleniumlibrary
-    - pip install robotframework-jsonlibrary
-    - pip install robotframework-requests
-    - pip install chromedriver-autoinstaller
+    - apt-get install -y python3-pip
+    - pip3 install --upgrade pip
+    - pip3 install robotframework
+    - pip3 install robotframework-seleniumlibrary
+    - pip3 install robotframework-jsonlibrary
+    - pip3 install robotframework-requests
+    - pip3 install chromedriver-autoinstaller  # In case you need ChromeDriver
 
   script:
     # Run the tests in Headless mode using xvfb
@@ -45,3 +23,5 @@ test:
     paths:
       - results/
     expire_in: 1 week
+
+  when: manual  # This allows manual triggering of the job
