@@ -1,30 +1,31 @@
+image: python:3.9-slim
+
 stages:
   - test
 
 test:
   stage: test
-  image: mcr.microsoft.com/playwright:v1.43.1-jammy  # Playwright image
   before_script:
-    # Install Python and required dependencies
+    # Install necessary packages
     - apt-get update
-    - apt-get install -y python3-pip python3-dev
-    - pip3 install --upgrade pip
-    - pip3 install robotframework
-    - pip3 install robotframework-seleniumlibrary
-    - pip3 install robotframework-jsonlibrary
-    - pip3 install robotframework-requests
-    - pip3 install chromedriver-autoinstaller  # Optional, if you need ChromeDriver
-    - pip3 install playwright  # To ensure Playwright is installed
+    - apt-get install -y \
+        wget \
+        gnupg \
+        curl \
+        unzip \
+        xvfb \
+    # Install Robot Framework and its dependencies
+    - pip install --upgrade pip
+    - pip install robotframework
+    - pip install robotframework-seleniumlibrary
+    - pip install robotframework-jsonlibrary
+    - pip install robotframework-requests
 
   script:
-    # Ensure Playwright browsers are installed
-    - python3 -m playwright install
-    # Run the Robot Framework tests in Headless mode using xvfb
-    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true tests/
+    # Run the tests using Xvfb for a virtual display
+    - xvfb-run --auto-servernum robot tests/
 
   artifacts:
     paths:
       - results/
     expire_in: 1 week
-
-  when: manual  # This allows manual triggering of the job
