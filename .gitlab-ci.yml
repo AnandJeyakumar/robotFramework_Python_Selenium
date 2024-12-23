@@ -7,14 +7,33 @@ test:
   stage: test
   when: manual  # This allows manual triggering of the job
   before_script:
-    # Install necessary packages
-    - apt-get update
+    # Update and install dependencies
+    - apt-get update -y
     - apt-get install -y \
         wget \
         gnupg \
         curl \
         unzip \
-        xvfb
+        xvfb \
+        libxss1 \
+        libappindicator3-1 \
+        libindicator7 \
+        fonts-liberation \
+        libnss3 \
+        libgdk-pixbuf2.0-0 \
+        libnspr4 \
+        xdg-utils \
+        libgbm-dev \
+        libasound2 \
+        libatk-bridge2.0-0 \
+        libatk1.0-0 \
+        libcups2 \
+        libxcomposite1 \
+        libxrandr2 \
+        libxi6 \
+        libxtst6 \
+        libnss3-dev \
+        libcurl4
     # Install Robot Framework and its dependencies
     - pip install --upgrade pip
     - pip install robotframework
