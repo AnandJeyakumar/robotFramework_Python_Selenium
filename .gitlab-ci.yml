@@ -3,20 +3,23 @@ stages:
 
 test:
   stage: test
-  image: mcr.microsoft.com/playwright:v1.43.1-jammy  # Using the Playwright image
+  image: mcr.microsoft.com/playwright:v1.43.1-jammy  # Playwright image
   before_script:
-    # Install Python dependencies
+    # Install Python and required dependencies
     - apt-get update
-    - apt-get install -y python3-pip
+    - apt-get install -y python3-pip python3-dev
     - pip3 install --upgrade pip
     - pip3 install robotframework
     - pip3 install robotframework-seleniumlibrary
     - pip3 install robotframework-jsonlibrary
     - pip3 install robotframework-requests
-    - pip3 install chromedriver-autoinstaller  # In case you need ChromeDriver
+    - pip3 install chromedriver-autoinstaller  # Optional, if you need ChromeDriver
+    - pip3 install playwright  # To ensure Playwright is installed
 
   script:
-    # Run the tests in Headless mode using xvfb
+    # Ensure Playwright browsers are installed
+    - python3 -m playwright install
+    # Run the Robot Framework tests in Headless mode using xvfb
     - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true tests/
 
   artifacts:
