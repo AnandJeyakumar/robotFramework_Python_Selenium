@@ -7,15 +7,27 @@ test:
   before_script:
     - apt-get update -y
     - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2
+    # Install Google Chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
     - apt-get update -y
     - apt-get install -y google-chrome-stable
+    # Install Python dependencies
     - pip install --upgrade pip
     - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
+
   script:
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results tests/
+    # Debug Chrome installation
+    - google-chrome --version
+    - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 https://www.google.com
+    # Run Robot Framework tests with updated Chrome options
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable OPTIONS:"--headless --no-sandbox --disable-dev-shm-usage --disable-gpu" tests/
+
   artifacts:
     paths:
       - results/
     expire_in: 1 week
+
+services:
+  - name: docker:19.03.12
+    command: ['--shm-size=256m']
