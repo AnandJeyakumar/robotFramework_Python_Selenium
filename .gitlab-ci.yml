@@ -4,6 +4,11 @@ stages:
 test:
   stage: test
   image: python:3.9
+  variables:
+    # Set XDG_RUNTIME_DIR and disable GPU for compatibility
+    XDG_RUNTIME_DIR: "/tmp/runtime-root"
+    CHROME_BIN: "/usr/bin/google-chrome"
+
   before_script:
     - apt-get update -y
     - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2
@@ -15,12 +20,13 @@ test:
     # Install Python dependencies
     - pip install --upgrade pip
     - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
+    # Ensure the runtime directory exists
+    - mkdir -p $XDG_RUNTIME_DIR
+    - chmod 700 $XDG_RUNTIME_DIR
 
   script:
     # Debug Chrome installation
     - google-chrome --version
-    - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 https://www.google.com
-    # Run Robot Framework tests with updated Chrome options
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable OPTIONS:"--headless --no-sandbox --disable-dev-shm-usage --disable-gpu" tests/
 
   artifacts:
