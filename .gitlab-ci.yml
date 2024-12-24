@@ -18,21 +18,38 @@ before_script:
   - apt-get install -y chromium chromium-driver
   - apt-get install -y xvfb
   - apt-get install -y dbus-x11
+  - apt-get install -y lsof # Install lsof to check if Chrome started correctly
+
+  # Install Google Chrome if it's not already installed
+  - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+  - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+  - apt-get update -y
+  - apt-get install -y google-chrome-stable
 
   # Start Xvfb
   - Xvfb $DISPLAY -screen 0 1280x1024x24 &
+
+  # Set DISPLAY environment variable
   - export DISPLAY=$DISPLAY
 
   # Start Google Chrome in headless mode
   - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
+
+  # Wait for Chrome to start
   - sleep 5
 
   # Verify if Chrome started
   - lsof -i :9222 || echo "Chrome did not start correctly"
 
   # Check Chrome and ChromeDriver versions
-  - google-chrome --version
+  - google-chrome --version || echo "Google Chrome failed to start"
   - chromedriver --version || echo "Chromedriver not installed correctly"
+
+  # Debugging: Chrome logs
+  - tail -n 20 /var/log/google-chrome-stable.log || echo "No Chrome logs found"
+
+  # Debugging: ChromeDriver logs
+  - tail -n 20 /var/log/chromedriver.log || echo "No Chromedriver logs found"
 
 test:
   stage: test
