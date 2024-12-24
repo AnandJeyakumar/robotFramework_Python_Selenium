@@ -18,9 +18,9 @@ before_script:
   - apt-get install -y chromium chromium-driver
   - apt-get install -y xvfb
   - apt-get install -y dbus-x11
-  - apt-get install -y lsof # Install lsof to check if Chrome started correctly
-  - apt-get install -y gnupg # Install gnupg for handling the Google signing key
-  - apt-get install -y python3-pip # Install pip for Python 3
+  - apt-get install -y lsof
+  - apt-get install -y gnupg
+  - apt-get install -y python3-pip
 
   # Install Robot Framework and SeleniumLibrary
   - pip3 install robotframework
@@ -34,15 +34,18 @@ before_script:
 
   # Start Xvfb
   - Xvfb $DISPLAY -screen 0 1280x1024x24 &
+  - sleep 2  # Allow Xvfb to start
 
   # Set DISPLAY environment variable
   - export DISPLAY=$DISPLAY
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export CHROME_DRIVER=/usr/local/bin/chromedriver
 
   # Start Google Chrome in headless mode
   - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
 
   # Wait for Chrome to start
-  - sleep 5
+  - sleep 10
 
   # Verify if Chrome started
   - lsof -i :9222 || echo "Chrome did not start correctly"
@@ -50,12 +53,6 @@ before_script:
   # Check Chrome and ChromeDriver versions
   - google-chrome --version || echo "Google Chrome failed to start"
   - chromedriver --version || echo "Chromedriver not installed correctly"
-
-  # Debugging: Chrome logs
-  - tail -n 20 /var/log/google-chrome-stable.log || echo "No Chrome logs found"
-
-  # Debugging: ChromeDriver logs
-  - tail -n 20 /var/log/chromedriver.log || echo "No Chromedriver logs found"
 
 test:
   stage: test
