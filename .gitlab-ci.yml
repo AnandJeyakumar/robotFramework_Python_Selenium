@@ -3,28 +3,18 @@ stages:
 
 test:
   stage: test
-  image: python:3.9  # Use Python 3.9 Docker image
+  image: python:3.9
   before_script:
-    # Install system dependencies
     - apt-get update -y
-    - apt-get install -y wget gnupg curl xvfb libxss1 libayatana-appindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libxcomposite1 libxrandr2 libxi6 libxtst6 libnss3-dev libcurl4
-    # Install Google Chrome
+    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    - apt-get update
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update -y
     - apt-get install -y google-chrome-stable
-    # Install Python dependencies
     - pip install --upgrade pip
-    - pip install robotframework
-    - pip install robotframework-seleniumlibrary
-    - pip install robotframework-jsonlibrary
-    - pip install robotframework-requests
-    - pip install chromedriver-autoinstaller
-
+    - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
   script:
-    # Run tests in headless mode with xvfb
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable START_MAXIMIZED:true --variable USER_DATA_DIR:/tmp/chrome_data tests/
-
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results tests/
   artifacts:
     paths:
       - results/
