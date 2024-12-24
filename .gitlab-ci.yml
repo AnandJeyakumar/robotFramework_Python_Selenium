@@ -2,15 +2,15 @@ stages:
   - test
 
 test:
-  stage: test
   image: python:3.9
   variables:
-    XDG_RUNTIME_DIR: "/tmp/runtime-root"
     CHROME_BIN: "/usr/bin/google-chrome"
+    DISPLAY: ":99"  # Xvfb virtual display number
 
   before_script:
+    # Install necessary dependencies for running Chrome and Xvfb
     - apt-get update -y
-    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxtst6 libxrandr2 libgtk-3-0 lsof
+    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxtst6 libxrandr2 libgtk-3-0 lsof dbus-x11
     # Install Google Chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
@@ -19,16 +19,17 @@ test:
     # Install Python dependencies
     - pip install --upgrade pip
     - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
-    # Ensure runtime directory exists
-    - mkdir -p $XDG_RUNTIME_DIR
-    - chmod 700 $XDG_RUNTIME_DIR
 
   script:
-    - google-chrome --version
+    # Start Xvfb with virtual display
+    - Xvfb :99 -screen 0 1280x1024x24 &
+    - export DISPLAY=:99  # Set the display to Xvfb
+    # Start Chrome in headless mode
     - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 about:blank &
-    - sleep 5
-    - lsof -i :9222 || echo "Chrome did not start correctly" # Debugging step
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"--headless --disable-dev-shm-usage --no-sandbox --disable-gpu" tests/
+    - sleep 5 # Wait for Chrome to fully start
+    - lsof -i :9222 || echo "Chrome did not start correctly"
+    # Run the Robot Framework tests
+    - robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"--headless --disable-dev-shm-usage --no-sandbox --disable-gpu" tests/
 
   artifacts:
     paths:
