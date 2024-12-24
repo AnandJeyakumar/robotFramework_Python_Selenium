@@ -19,6 +19,7 @@ before_script:
   - apt-get install -y xvfb
   - apt-get install -y dbus-x11
   - apt-get install -y lsof # Install lsof to check if Chrome started correctly
+  - apt-get install -y gnupg # Install gnupg for handling the Google signing key
 
   # Install Google Chrome if it's not already installed
   - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
