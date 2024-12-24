@@ -41,6 +41,10 @@ before_script:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export CHROME_DRIVER=/usr/local/bin/chromedriver
 
+  # Start DBus
+  - dbus-uuidgen > /etc/machine-id
+  - service dbus start
+
   # Start Google Chrome in headless mode
   - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
 
