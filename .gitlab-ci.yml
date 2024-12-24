@@ -5,9 +5,9 @@ test:
   stage: test
   image: python:3.9
   variables:
-    # Set XDG_RUNTIME_DIR and disable GPU for compatibility
     XDG_RUNTIME_DIR: "/tmp/runtime-root"
     CHROME_BIN: "/usr/bin/google-chrome"
+    ROBOT_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222"
 
   before_script:
     - apt-get update -y
@@ -25,9 +25,8 @@ test:
     - chmod 700 $XDG_RUNTIME_DIR
 
   script:
-    # Debug Chrome installation
     - google-chrome --version
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable OPTIONS:"--headless --no-sandbox --disable-dev-shm-usage --disable-gpu" tests/
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable OPTIONS:"$ROBOT_OPTIONS" tests/
 
   artifacts:
     paths:
