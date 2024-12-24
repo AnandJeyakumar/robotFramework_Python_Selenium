@@ -1,37 +1,43 @@
+image: python:3.9-slim
+
 stages:
   - test
 
+variables:
+  DISPLAY: ":99"
+  BROWSER: "Chrome"
+  SELENIUM_ARGUMENTS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0"
+  CHROME_BIN: "/usr/bin/google-chrome"
+  CHROME_DRIVER: "/usr/local/bin/chromedriver"
+  XVFB: ":99 -screen 0 1280x1024x24"
+
+before_script:
+  # Install dependencies
+  - apt-get update -y
+  - apt-get install -y wget curl unzip libnss3 libgconf-2-4 libfontconfig1
+  - apt-get install -y chromium chromium-driver
+  - apt-get install -y xvfb
+  - apt-get install -y dbus-x11
+
+  # Start Xvfb
+  - Xvfb $DISPLAY -screen 0 1280x1024x24 &
+  - export DISPLAY=$DISPLAY
+
+  # Start Google Chrome in headless mode
+  - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
+  - sleep 5
+
+  # Verify if Chrome started
+  - lsof -i :9222 || echo "Chrome did not start correctly"
+
+  # Check Chrome and ChromeDriver versions
+  - google-chrome --version
+  - chromedriver --version || echo "Chromedriver not installed correctly"
+
 test:
-  image: python:3.9
-  variables:
-    CHROME_BIN: "/usr/bin/google-chrome"
-    DISPLAY: ":99"  # Xvfb virtual display number
-
-  before_script:
-    # Install necessary dependencies for running Chrome and Xvfb
-    - apt-get update -y
-    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxtst6 libxrandr2 libgtk-3-0 lsof dbus-x11
-    # Install Google Chrome
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-    - apt-get update -y
-    - apt-get install -y google-chrome-stable
-    # Install Python dependencies
-    - pip install --upgrade pip
-    - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
-
+  stage: test
   script:
-    # Start Xvfb with virtual display
-    - Xvfb :99 -screen 0 1280x1024x24 &
-    - export DISPLAY=:99  # Set the display to Xvfb
-    # Start Chrome in headless mode
-    - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 about:blank &
-    - sleep 5 # Wait for Chrome to fully start
-    - lsof -i :9222 || echo "Chrome did not start correctly"
-    # Run the Robot Framework tests
-    - robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"--headless --disable-dev-shm-usage --no-sandbox --disable-gpu" tests/
-
+    - robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"$SELENIUM_ARGUMENTS" tests/
   artifacts:
     paths:
-      - results/
-    expire_in: 1 week
+      - results/*
