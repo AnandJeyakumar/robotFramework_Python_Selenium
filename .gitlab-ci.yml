@@ -22,8 +22,9 @@ before_script:
   - apt-get install -y gnupg # Install gnupg for handling the Google signing key
   - apt-get install -y python3-pip # Install pip for Python 3
 
-  # Install Robot Framework
+  # Install Robot Framework and SeleniumLibrary
   - pip3 install robotframework
+  - pip3 install robotframework-seleniumlibrary
 
   # Install Google Chrome if it's not already installed
   - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
