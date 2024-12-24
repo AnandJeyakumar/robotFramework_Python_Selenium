@@ -7,7 +7,7 @@ test:
   variables:
     XDG_RUNTIME_DIR: "/tmp/runtime-root"
     CHROME_BIN: "/usr/bin/google-chrome"
-    ROBOT_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222"
+    ROBOT_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu"
 
   before_script:
     - apt-get update -y
@@ -26,13 +26,9 @@ test:
 
   script:
     - google-chrome --version
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable OPTIONS:"$ROBOT_OPTIONS" tests/
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable CHROME_ARGS:"$ROBOT_OPTIONS" tests/
 
   artifacts:
     paths:
       - results/
     expire_in: 1 week
-
-services:
-  - name: docker:19.03.12
-    command: ['--shm-size=256m']
