@@ -10,7 +10,7 @@ test:
 
   before_script:
     - apt-get update -y
-    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2
+    - apt-get install -y wget gnupg curl xvfb fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxtst6 libxrandr2 libgtk-3-0
     # Install Google Chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
@@ -19,13 +19,13 @@ test:
     # Install Python dependencies
     - pip install --upgrade pip
     - pip install robotframework robotframework-seleniumlibrary robotframework-jsonlibrary robotframework-requests chromedriver-autoinstaller
-    # Ensure the runtime directory exists
+    # Ensure runtime directory exists
     - mkdir -p $XDG_RUNTIME_DIR
     - chmod 700 $XDG_RUNTIME_DIR
 
   script:
     - google-chrome --version
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"--headless --no-sandbox --disable-dev-shm-usage --disable-gpu" tests/
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"--headless --disable-dev-shm-usage --no-sandbox --disable-gpu" tests/
 
   artifacts:
     paths:
