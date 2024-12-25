@@ -6,7 +6,7 @@ variables:
   CHROME_LOG_FILE: "/tmp/chrome_debug.log"
   HEADLESS: "true"
   REMOTE_DEBUGGING_PORT: "9222"
-  CHROME_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=/tmp/chrome_user_data"
+  CHROME_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer"
 
 test:
   stage: test
@@ -38,5 +38,6 @@ test:
     - sleep 5  # Wait for Xvfb to start
     - ps aux | grep Xvfb
     - echo "Chrome Options: ${CHROME_OPTIONS}"
-    - export CHROME_OPTIONS="${CHROME_OPTIONS} --user-data-dir=/tmp/chrome_user_data_$(date +%s)"  # Append timestamp to user data dir
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --var
+    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)"  # Generate unique directory for each run
+    - export CHROME_OPTIONS="${CHROME_OPTIONS} --user-data-dir=${UNIQUE_USER_DATA_DIR}"  # Append unique user data dir to CHROME_OPTIONS
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --vari
