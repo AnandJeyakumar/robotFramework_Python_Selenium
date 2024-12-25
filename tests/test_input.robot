@@ -13,9 +13,8 @@ Input Test Case
     Sleep         5s
     ${title}      Set Variable    Automation Testing Practice
     Title Should Be    ${title}
-    clear element text    id=email
+    Clear Element Text    id=email
     Sleep         3s
-
     [Teardown]    Close Browser
 
 *** Keywords ***

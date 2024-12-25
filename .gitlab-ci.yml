@@ -23,7 +23,7 @@ test:
     - pip install robotframework-requests
     - pip install chromedriver-autoinstaller
   script:
-    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true tests/
+    - xvfb-run --auto-servernum robot --outputdir results tests/
   artifacts:
     paths:
       - results/
