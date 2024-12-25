@@ -34,13 +34,14 @@ test:
 
   script:
     # Kill any remaining Chrome or Chromedriver processes
-    - pkill -f chrome || true
-    - pkill -f chromedriver || true
+    - pkill -9 -f chrome || true
+    - pkill -9 -f chromedriver || true
     - sleep 5  # Wait for processes to terminate completely
 
-    # Clean up any existing user data directories
+    # Clean up any existing user data directories and lock files
     - rm -rf /tmp/chrome_user_data_*
-    - sleep 5  # Extra time to ensure the directories are cleared
+    - rm -f /tmp/chrome_user_data_*/.lock || true
+    - sleep 10  # Extra time to ensure the directories are cleared
 
     # Verify no lingering Chrome or Chromedriver processes
     - ps aux | grep chrome
