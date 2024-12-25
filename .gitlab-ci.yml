@@ -5,7 +5,7 @@ variables:
   CHROME_BIN: "/usr/bin/google-chrome"
   CHROME_LOG_FILE: "/tmp/chrome_debug.log"
   HEADLESS: "true"
-  REMOTE_DEBUGGING_PORT: "9222"  # Added remote debugging port
+  REMOTE_DEBUGGING_PORT: "9222"
 
 test:
   stage: test
@@ -15,7 +15,7 @@ test:
     - sysctl -w fs.file-max=1000000
     - apt-get update
     - apt-get install -y wget gnupg xvfb
-    - apt-get install -y libxss1 libappindicator3-1 libindicator7 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev
+    - apt-get install -y libxss1 libappindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     - apt-get update
