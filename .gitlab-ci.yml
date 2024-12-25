@@ -36,6 +36,8 @@ test:
     # Kill any remaining Chrome or Chromedriver processes
     - pkill -9 -f chrome || true
     - pkill -9 -f chromedriver || true
+    - killall -9 chrome || true  # Make sure no chrome processes are left
+    - killall -9 chromedriver || true  # Make sure no chromedriver processes are left
     - sleep 5  # Wait for processes to terminate completely
 
     # Clean up any existing user data directories and lock files
