@@ -28,6 +28,7 @@ test:
     - pip install robotframework-requests
     - pip install chromedriver-autoinstaller  # Install the package
     - python -c "import chromedriver_autoinstaller; chromedriver_autoinstaller.install()"  # Install the correct chromedriver
+    - google-chrome --version
 
   script:
     # Start Xvfb in the background
