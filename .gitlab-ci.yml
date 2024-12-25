@@ -22,8 +22,18 @@ test:
     - pip install robotframework-jsonlibrary
     - pip install robotframework-requests
     - pip install chromedriver-autoinstaller
+
   script:
-    - xvfb-run --auto-servernum robot --outputdir results tests/
+    # Start Xvfb in the background
+    - export DISPLAY=:99
+    - nohup Xvfb :99 -screen 0 1280x1024x24 &
+
+    # Sleep for a few seconds to ensure Xvfb is ready
+    - sleep 3
+
+    # Run the tests with xvfb-run, which handles the display redirection
+    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
+
   artifacts:
     paths:
       - results/

@@ -4,7 +4,7 @@ Library  SeleniumLibrary
 *** Variables ***
 ${url}       https://testautomationpractice.blogspot.com/
 ${browser}   chrome
-${chrome_options}    --headless --no-sandbox --disable-dev-shm-usage --disable-gpu
+${chrome_options}    --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer
 
 
 *** Test Cases ***
