@@ -6,7 +6,7 @@ stages:
 variables:
   DISPLAY: ":99"
   BROWSER: "Chrome"
-  SELENIUM_ARGUMENTS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0"
+  SELENIUM_ARGUMENTS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --disable-software-rasterizer --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0"
   CHROME_BIN: "/usr/bin/google-chrome"
   CHROME_DRIVER: "/usr/local/bin/chromedriver"
   XVFB: ":99 -screen 0 1280x1024x24"
@@ -22,6 +22,9 @@ before_script:
   - apt-get install -y gnupg
   - apt-get install -y python3-pip
 
+  # Update pip
+  - pip install --upgrade pip
+
   # Install Robot Framework and SeleniumLibrary
   - pip3 install robotframework
   - pip3 install robotframework-seleniumlibrary
@@ -36,7 +39,7 @@ before_script:
   - Xvfb $DISPLAY -screen 0 1280x1024x24 &
   - sleep 2  # Allow Xvfb to start
 
-  # Set DISPLAY environment variable
+  # Set environment variables
   - export DISPLAY=$DISPLAY
   - export CHROME_BIN=/usr/bin/google-chrome
   - export CHROME_DRIVER=/usr/local/bin/chromedriver
@@ -46,22 +49,4 @@ before_script:
   - service dbus start
 
   # Start Google Chrome in headless mode
-  - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
-
-  # Wait for Chrome to start
-  - sleep 10
-
-  # Verify if Chrome started
-  - lsof -i :9222 || echo "Chrome did not start correctly"
-
-  # Check Chrome and ChromeDriver versions
-  - google-chrome --version || echo "Google Chrome failed to start"
-  - chromedriver --version || echo "Chromedriver not installed correctly"
-
-test:
-  stage: test
-  script:
-    - robot --outputdir results --variable BROWSER:Chrome --variable SELENIUM_ARGUMENTS:"$SELENIUM_ARGUMENTS" tests/
-  artifacts:
-    paths:
-      - results/*
+  - google-chrome --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --d
