@@ -29,17 +29,20 @@ test:
     - pip install chromedriver-autoinstaller  # Install the package
     - python -c "import chromedriver_autoinstaller; chromedriver_autoinstaller.install()"  # Install the correct chromedriver
     - google-chrome --version
-
+  
   script:
-    # Clean up any existing Chrome processes
+    # Kill any remaining Chrome or Chromedriver processes
     - pkill -f chrome || true
     - pkill -f chromedriver || true
-    - sleep 5  # Allow time for processes to terminate
+    - sleep 5  # Wait for processes to terminate completely
 
     # Clean up any existing user data directories from previous runs
     - rm -rf /tmp/chrome_user_data_*
-    - sleep 2  # Ensure the directories are completely removed
-    - ls -l /tmp/  # Debug: List files to confirm removal
+    - sleep 2  # Give it some time to clear
+
+    # Verify no lingering Chrome processes
+    - ps aux | grep chrome
+    - ps aux | grep chromedriver
 
     # Create a unique user data directory
     - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(openssl rand -hex 6)"
@@ -48,7 +51,7 @@ test:
     # Set Chrome options with the new user data directory
     - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
 
-    # Print the user data directory path (make sure the echo is a string, hence quotes)
+    # Print the user data directory for debugging
     - "echo Using User Data Directory: $UNIQUE_USER_DATA_DIR"
 
     # Run tests using xvfb-run
