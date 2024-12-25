@@ -26,8 +26,8 @@ test:
     - pip install robotframework-seleniumlibrary
     - pip install robotframework-jsonlibrary
     - pip install robotframework-requests
-    - pip install chromedriver-autoinstaller
-    - python -m chromedriver_autoinstaller  # Ensures chromedriver is installed
+    - pip install chromedriver-autoinstaller  # Install the package
+    - python -c "import chromedriver_autoinstaller; chromedriver_autoinstaller.install()"  # Install the correct chromedriver
 
   script:
     # Start Xvfb in the background
