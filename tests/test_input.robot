@@ -4,7 +4,7 @@ Library  SeleniumLibrary
 *** Variables ***
 ${url}       https://testautomationpractice.blogspot.com/
 ${browser}   chrome
-${chrome_options}    --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer
+${chrome_options}  --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222
 
 
 *** Test Cases ***
@@ -21,6 +21,6 @@ Input Test Case
 
 *** Keywords ***
 Open Browser To Test Page
-    Open Browser    ${url}    ${browser}    --arguments=${chrome_options}
+    Open Browser    ${url}    ${browser}    --options=${chrome_options}
     Wait Until Page Contains    Automation Testing Practice
     Maximize Browser Window
