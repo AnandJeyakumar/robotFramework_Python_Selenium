@@ -20,6 +20,6 @@ Input Test Case
 
 *** Keywords ***
 Open Browser To Test Page
-    Open Browser    ${url}    ${browser}
+    Open Browser    ${url}    ${browser}    options=--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu
     Wait Until Page Contains    Automation Testing Practice
-    maximize browser window
+    Maximize Browser Window
