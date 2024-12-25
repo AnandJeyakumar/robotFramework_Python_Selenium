@@ -31,13 +31,14 @@ test:
     - google-chrome --version
 
   script:
-    # Clean up any existing Chrome processes and ensure no lingering chrome processes
+    # Clean up any existing Chrome processes
     - pkill -9 chrome || true
     - pkill -9 chromedriver || true
     - sleep 5  # Allow time for processes to terminate
 
-    # Remove any previous user data directory
+    # Clean up any existing user data directories from previous runs
     - rm -rf /tmp/chrome_user_data_*
+    - sleep 2  # Ensure the directories are completely removed
 
     # Create a unique user data directory
     - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)"
@@ -46,7 +47,10 @@ test:
     # Set Chrome options with the new user data directory
     - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
 
-    # Run tests
+    # Print the user data directory path (make sure the echo is a string, hence quotes)
+    - "echo Using User Data Directory: $UNIQUE_USER_DATA_DIR"
+
+    # Run tests using xvfb-run
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable CHROME_OPTIONS:"$CHROME_OPTIONS" --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
 
   artifacts:
