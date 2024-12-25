@@ -31,18 +31,19 @@ test:
     - google-chrome --version
 
   script:
-    # Clean up any existing Chrome processes
+    # Clean up any existing Chrome processes and ensure no lingering chrome processes
     - pkill -9 chrome || true
     - pkill -9 chromedriver || true
-    - export DISPLAY=:99
-    - nohup Xvfb :99 -screen 0 1280x1024x24 &
-    - sleep 5  # Wait for Xvfb to start
+    - sleep 5  # Allow time for processes to terminate
+
+    # Remove any previous user data directory
+    - rm -rf /tmp/chrome_user_data_*
 
     # Create a unique user data directory
     - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)"
     - mkdir -p $UNIQUE_USER_DATA_DIR
 
-    # Set Chrome options
+    # Set Chrome options with the new user data directory
     - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
 
     # Run tests
