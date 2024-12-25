@@ -37,7 +37,6 @@ test:
     - sleep 5  # Wait for Xvfb to start
     - ps aux | grep Xvfb]
     - export UNIQUE_USER_DATA_DIR=$(mktemp -d)
-      - echo "Using User Data Directory: $UNIQUE_USER_DATA_DIR"
     - export CHROME_OPTIONS="$CHROME_OPTIONS --user-data-dir=${UNIQUE_USER_DATA_DIR}"
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable REMOTE_DEBUGGING_PORT:9222 --variable CHROME_OPTIONS:"$CHROME_OPTIONS" tests/
     - rm -rf ${UNIQUE_USER_DATA_DIR}
