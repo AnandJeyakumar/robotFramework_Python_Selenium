@@ -5,29 +5,31 @@ stages:
 
 variables:
   DISPLAY: ":99"
-  SELENIUM_ARGUMENTS: "--headless --disable-gpu --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --disable-software-rasterizer --disable-extensions --disable-background-networking --disable-default-apps --disable-popup-blocking --disable-sync --disable-translate --metrics-recording-only --safebrowsing-disable-auto-update"
+  SELENIUM_ARGUMENTS: "--headless --disable-gpu --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --disable-software-rasterizer"
 
 before_script:
   - apt-get update -y
   - apt-get install -y wget curl unzip libnss3 libgconf-2-4 libfontconfig1
-  - apt-get install -y chromium chromium-driver xvfb dbus-x11 lsof gnupg python3-pip
-  - pip install --upgrade pip
-  - pip3 install robotframework robotframework-seleniumlibrary
+  - apt-get install -y chromium chromium-driver xvfb dbus-x11 gnupg lsof apt-utils
+  - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-keyring.gpg
+  - echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+  - apt-get update -y && apt-get install -y google-chrome-stable
+  - ls -l /usr/bin/google-chrome || echo "Google Chrome binary not found"
   - mount -o remount,size=2G /dev/shm
   - Xvfb $DISPLAY -screen 0 1280x1024x24 &
   - sleep 2
   - export DISPLAY=$DISPLAY
-  - export CHROME_BIN=/usr/bin/google-chrome
+  - export CHROME_BIN=$(ls /usr/bin/google-chrome /usr/bin/chromium 2>/dev/null | head -n 1)
   - export CHROME_DRIVER=/usr/local/bin/chromedriver
   - dbus-uuidgen > /etc/machine-id
   - service dbus start
   - |
     for i in {1..3}; do
-      google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
+      $CHROME_BIN --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 about:blank &
       sleep 10
       lsof -i :9222 && break || echo "Retrying Chrome launch..."
     done
-  - google-chrome --version || echo "Google Chrome failed to start"
+  - $CHROME_BIN --version || echo "Google Chrome failed to start"
   - chromedriver --version || echo "Chromedriver not installed correctly"
 
 test:
