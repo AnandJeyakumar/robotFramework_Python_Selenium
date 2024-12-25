@@ -4,6 +4,8 @@ Library  SeleniumLibrary
 *** Variables ***
 ${url}       https://testautomationpractice.blogspot.com/
 ${browser}   chrome
+${chrome_options}    --headless --no-sandbox --disable-dev-shm-usage --disable-gpu
+
 
 *** Test Cases ***
 Input Test Case
@@ -19,6 +21,6 @@ Input Test Case
 
 *** Keywords ***
 Open Browser To Test Page
-    Open Browser    ${url}    ${browser}    options=--headless,--no-sandbox,--disable-dev-shm-usage,--disable-gpu
+    Open Browser    ${url}    ${browser}    --arguments=${chrome_options}
     Wait Until Page Contains    Automation Testing Practice
     Maximize Browser Window
