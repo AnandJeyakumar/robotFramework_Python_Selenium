@@ -6,7 +6,7 @@ variables:
   CHROME_LOG_FILE: "/tmp/chrome_debug.log"
   HEADLESS: "true"
   REMOTE_DEBUGGING_PORT: "9222"
-  CHROME_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222"
+  CHROME_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=/tmp/chrome_user_data --enable-logging --v=1"
 
 test:
   stage: test
@@ -20,7 +20,7 @@ test:
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     - apt-get update
-    - apt-get install -y google-chrome-stable
+    - apt-get install -y google-chrome-beta  # Try the beta version of Chrome
     - pip install --upgrade pip
     - pip install robotframework
     - pip install robotframework-seleniumlibrary
@@ -32,9 +32,11 @@ test:
 
   script:
     # Start Xvfb in the background
+    - pkill -9 chrome || true
     - export DISPLAY=:99
     - nohup Xvfb :99 -screen 0 1280x1024x24 &
-    - sleep 3  # Wait for Xvfb to start
+    - sleep 5  # Wait for Xvfb to start
+    - ps aux | grep Xvfb
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable REMOTE_DEBUGGING_PORT:9222 --variable CHROME_OPTIONS:"${CHROME_OPTIONS}" tests/
 
   artifacts:
