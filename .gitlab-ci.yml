@@ -36,7 +36,6 @@ test:
     - nohup Xvfb :99 -screen 0 1280x1024x24 &
     - sleep 5  # Wait for Xvfb to start
     - ps aux | grep Xvfb]
-    - echo "Chrome Options: $CHROME_OPTIONS"  # Print Chrome Optio
     - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)"  # Generate unique directory for each run
     - export CHROME_OPTIONS="$CHROME_OPTIONS --user-data-dir=${UNIQUE_USER_DATA_DIR}"  # Append unique user data dir to CHROME_OPTIONS
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable REMOTE_DEBUGGING_PORT:9222 --variable CHROME_OPTIONS:"$CHROME_OPTIONS" tests/
