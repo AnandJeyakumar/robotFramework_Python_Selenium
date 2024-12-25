@@ -15,7 +15,7 @@ test:
     - sysctl -w vm.max_map_count=262144
     - sysctl -w fs.file-max=1000000
     - apt-get update
-    - apt-get install -y wget gnupg xvfb
+    - apt-get install -y wget gnupg xvfb openssl  # Install openssl for random string generation
     - apt-get install -y libxss1 libappindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -42,14 +42,14 @@ test:
     - ls -l /tmp/  # Debug: List files to confirm removal
 
     # Create a unique user data directory
-    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(uuidgen)"
+    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(openssl rand -hex 6)"
     - mkdir -p $UNIQUE_USER_DATA_DIR
 
     # Set Chrome options with the new user data directory
     - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
 
     # Print the user data directory path (make sure the echo is a string, hence quotes)
-    - "echo Using User Data Directory: $UNIQUE_USER_DATA_DIR"
+    - echo "Using User Data Directory: $UNIQUE_USER_DATA_DIR"
 
     # Run tests using xvfb-run
     - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable CHROME_OPTIONS:"$CHROME_OPTIONS" --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
