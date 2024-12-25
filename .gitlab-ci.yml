@@ -5,13 +5,17 @@ variables:
   CHROME_BIN: "/usr/bin/google-chrome"
   CHROME_LOG_FILE: "/tmp/chrome_debug.log"
   HEADLESS: "true"
+  REMOTE_DEBUGGING_PORT: "9222"  # Added remote debugging port
 
 test:
   stage: test
   image: python:3.9
   before_script:
+    - sysctl -w vm.max_map_count=262144
+    - sysctl -w fs.file-max=1000000
     - apt-get update
     - apt-get install -y wget gnupg xvfb
+    - apt-get install -y libxss1 libappindicator3-1 libindicator7 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     - apt-get update
@@ -32,7 +36,7 @@ test:
     - sleep 3
 
     # Run the tests with xvfb-run, which handles the display redirection
-    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
+    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable REMOTE_DEBUGGING_PORT:9222 tests/
 
   artifacts:
     paths:
