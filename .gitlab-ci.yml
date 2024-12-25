@@ -33,7 +33,7 @@ test:
     - google-chrome --version
 
   script:
-    # Kill any existing Chrome or Chromedriver processes
+    # Kill any remaining Chrome or Chromedriver processes
     - pkill -f chrome || true
     - pkill -f chromedriver || true
     - sleep 5  # Wait for processes to terminate completely
@@ -45,6 +45,9 @@ test:
     # Verify no lingering Chrome or Chromedriver processes
     - ps aux | grep chrome
     - ps aux | grep chromedriver
+
+    # Check if any directories remain after cleanup
+    - ls /tmp/chrome_user_data_* || true
 
     # Create a unique user data directory
     - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(openssl rand -hex 6)"
