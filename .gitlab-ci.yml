@@ -32,16 +32,17 @@ test:
 
   script:
     # Clean up any existing Chrome processes
-    - pkill -9 chrome || true
-    - pkill -9 chromedriver || true
+    - pkill -f chrome || true
+    - pkill -f chromedriver || true
     - sleep 5  # Allow time for processes to terminate
 
     # Clean up any existing user data directories from previous runs
     - rm -rf /tmp/chrome_user_data_*
     - sleep 2  # Ensure the directories are completely removed
+    - ls -l /tmp/  # Debug: List files to confirm removal
 
     # Create a unique user data directory
-    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)"
+    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(uuidgen)"
     - mkdir -p $UNIQUE_USER_DATA_DIR
 
     # Set Chrome options with the new user data directory
