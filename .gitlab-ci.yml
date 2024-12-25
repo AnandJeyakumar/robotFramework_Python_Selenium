@@ -31,15 +31,14 @@ test:
     - google-chrome --version
 
   script:
+    # Start Xvfb in the background
     - pkill -9 chrome || true
     - export DISPLAY=:99
     - nohup Xvfb :99 -screen 0 1280x1024x24 &
     - sleep 5  # Wait for Xvfb to start
-    - ps aux | grep Xvfb]
     - export UNIQUE_USER_DATA_DIR=$(mktemp -d)
-    - export CHROME_OPTIONS="$CHROME_OPTIONS --user-data-dir=${UNIQUE_USER_DATA_DIR}"
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable REMOTE_DEBUGGING_PORT:9222 --variable CHROME_OPTIONS:"$CHROME_OPTIONS" tests/
-    - rm -rf ${UNIQUE_USER_DATA_DIR}
+    - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
+    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable CHROME_OPTIONS:"$CHROME_OPTIONS" --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
 
   artifacts:
     paths:
