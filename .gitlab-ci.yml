@@ -3,7 +3,7 @@ image: ypasmik/robot-framework
 stages:
   - test
 
-test_job:
+my_test_job:
   stage: test
   script:
     - pip install --upgrade pip  # Upgrade pip (optional)
@@ -13,3 +13,5 @@ test_job:
   artifacts:
     paths:
       - results/**
+  environment:
+    USERNAME: Ipatios Asmanidis  # Corrected indentation
