@@ -1,45 +1,15 @@
+image: ultimatedogg/docker-robot-framework
+
 stages:
   - test
 
-variables:
-  CHROME_BIN: "/usr/bin/google-chrome"
-  CHROME_LOG_FILE: "/tmp/chrome_debug.log"
-  HEADLESS: "true"
-  REMOTE_DEBUGGING_PORT: "9222"
-  CHROME_OPTIONS: "--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer"
-
-test:
+test_job:
   stage: test
-  image: ultimatedogg/docker-robot-framework
-  before_script:
-    - sysctl -w vm.max_map_count=262144
-    - apt-get update && apt-get install -y wget unzipnsure compatible versions
-    - pip install -r requirements.txt
-    - sysctl -w fs.file-max=1000000
-    - apt-get update
-    - apt-get install -y wget gnupg xvfb openssl  # Install openssl for random string generation
-    - apt-get install -y libxss1 libappindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    - apt-get update
-    - apt-get install -y google-chrome-beta  # Try the beta version of Chrome
-    - pip install --upgrade pip
-    - pip install robotframework
-    - pip install robotframework-seleniumlibrary
-    - pip install robotframework-jsonlibrary
-    - pip install robotframework-requests
-    - pip install chromedriver-autoinstaller  # Install the package
-    - python -c "import chromedriver_autoinstaller; chromedriver_autoinstaller.install()"  # Install the correct chromedriver
-
-    # Version check for Google Chrome
-    - google-chrome --version
-
   script:
-    # Kill any remaining Chrome or Chromedriver processes
+    - apt-get update && apt-get install -y wget unzip
+    - pip install -r requirements.txt
     - mkdir -p results
     - robot --outputdir results/ tests/
-
   artifacts:
     paths:
-      - results/
-    expire_in: 1 week
+      - results/**
