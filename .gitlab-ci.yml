@@ -1,4 +1,4 @@
-image: ypasmik/robot-framework
+image: ocker pull marketsquare/robotframework-browser
 
 stages:
   - test
@@ -6,8 +6,6 @@ stages:
 my_test_job:
   stage: test
   script:
-    - pip install --upgrade pip  # Upgrade pip (optional)
-    - pip install -r requirements.txt
     - mkdir -p results
     - robot --outputdir results/ tests/
   artifacts:
