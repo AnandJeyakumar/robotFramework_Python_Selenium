@@ -6,10 +6,10 @@ stages:
 my_test_job:
   stage: test
   script:
+    - pip install --upgrade pip  # Upgrade pip (optional)
+    - pip install -r requirements.txt
     - mkdir -p results
     - robot --outputdir results/ tests/
   artifacts:
     paths:
       - results/**
-  environment:
-    USERNAME: Ipatios Asmanidis  # Corrected indentation
