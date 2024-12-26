@@ -10,9 +10,11 @@ variables:
 
 test:
   stage: test
-  image: python:3.9
+  image: ultimatedogg/docker-robot-framework
   before_script:
     - sysctl -w vm.max_map_count=262144
+    - apt-get update && apt-get install -y wget unzipnsure compatible versions
+    - pip install -r requirements.txt
     - sysctl -w fs.file-max=1000000
     - apt-get update
     - apt-get install -y wget gnupg xvfb openssl  # Install openssl for random string generation
@@ -34,36 +36,8 @@ test:
 
   script:
     # Kill any remaining Chrome or Chromedriver processes
-    - pkill -9 -f chrome || true
-    - pkill -9 -f chromedriver || true
-    - killall -9 chrome || true  # Make sure no chrome processes are left
-    - killall -9 chromedriver || true  # Make sure no chromedriver processes are left
-    - sleep 5  # Wait for processes to terminate completely
-
-    # Clean up any existing user data directories and lock files
-    - rm -rf /tmp/chrome_user_data_*
-    - rm -f /tmp/chrome_user_data_*/.lock || true
-    - sleep 10  # Extra time to ensure the directories are cleared
-
-    # Verify no lingering Chrome or Chromedriver processes
-    - ps aux | grep chrome
-    - ps aux | grep chromedriver
-
-    # Check if any directories remain after cleanup
-    - ls /tmp/chrome_user_data_* || true
-
-    # Create a unique user data directory
-    - export UNIQUE_USER_DATA_DIR="/tmp/chrome_user_data_$(date +%s)_$(openssl rand -hex 6)"
-    - mkdir -p $UNIQUE_USER_DATA_DIR
-
-    # Set Chrome options with the new user data directory
-    - export CHROME_OPTIONS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu --remote-debugging-port=9222 --disable-software-rasterizer --user-data-dir=$UNIQUE_USER_DATA_DIR"
-
-    # Print the user data directory for debugging
-    - "echo Using User Data Directory: $UNIQUE_USER_DATA_DIR"
-
-    # Run tests with xvfb-run
-    - xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable CHROME_OPTIONS:"$CHROME_OPTIONS" --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true tests/
+    - mkdir -p results
+    - robot --outputdir results/ tests/
 
   artifacts:
     paths:
