@@ -1,4 +1,4 @@
-image: ultimatedogg/docker-robot-framework
+image: ypasmik/robot-framework
 
 stages:
   - test
@@ -6,7 +6,6 @@ stages:
 test_job:
   stage: test
   script:
-    - apt-get update && apt-get install -y wget unzip  # Assuming Debian-based image
     - pip install --upgrade pip  # Upgrade pip (optional)
     - pip install -r requirements.txt
     - mkdir -p results
