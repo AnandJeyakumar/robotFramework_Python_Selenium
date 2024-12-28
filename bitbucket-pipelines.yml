@@ -11,7 +11,7 @@ pipelines:
           - apt-get update && apt-get install -y wget unzip
 
           # Install Python dependencies from the requirements.txt file
-          - pip install -r requirements.txt
+          - pip install -r tests/requirements.txt
 
           # Create a directory for storing test results
           - mkdir -p results
