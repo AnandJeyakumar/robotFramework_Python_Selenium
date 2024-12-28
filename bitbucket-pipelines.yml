@@ -8,7 +8,11 @@ pipelines:
           - pip
         script:
           # Update and install required dependencies
-          - apt-get update && apt-get install -y wget unzip python3-venv python3-pip
+          - apt-get update && apt-get install -y wget unzip python3-venv python3-pip curl
+
+          # Install Chrome and dependencies (headless)
+          - apt-get install -y google-chrome-stable
+          - apt-get install -y libxss1 libappindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libcups2 libxcomposite1 libxrandr2 libxtst6 libcurl4
 
           # Create a virtual environment
           - python3 -m venv venv
@@ -16,16 +20,17 @@ pipelines:
           # Activate the virtual environment
           - source venv/bin/activate
 
-          # Upgrade pip within the virtual environment
+          # Upgrade pip inside the virtual environment
           - pip install --upgrade pip
 
           # Install dependencies from the requirements file
-          - pip install -r tests/requirements.txt  # Use the provided path for requirements.txt
+          - pip install -r tests/requirements.txt  # Ensure chromedriver-autoinstaller is in requirements.txt
 
           # Create results directory
           - mkdir -p results
 
           # Run Robot Framework tests
           - robot --outputdir results/ tests/
+
         artifacts:
           - results/**
