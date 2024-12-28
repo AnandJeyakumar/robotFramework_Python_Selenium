@@ -7,7 +7,10 @@ pipelines:
         caches:
           - pip
         script:
-          - apt-get update && apt-get install -y wget unzipnsure compatible versions
+          - pip install --upgrade pip  # Upgrading pip
+          # If you need to install system dependencies, you may need to use a different method.
+          # If you're using an Alpine-based image, use apk instead of apt-get
+          - apk update && apk add wget unzip  # If using Alpine Linux
           - pip install -r requirements.txt
           - mkdir -p results
           - robot --outputdir results/ tests/
