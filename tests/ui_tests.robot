@@ -27,6 +27,6 @@ Verify First Result Contain Search Items
 
 
 Check Logo is Visible
-    [Documentation]    Verify the Google logo is visible on the search results page
+    [Documentation]    Verify the Sign In is visible on the search results page
     set selenium timeout    7 seconds
-    element should be visible    id=logo
+    element should be visible    //a[@aria-label="Sign in"]
