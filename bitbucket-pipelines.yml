@@ -1,4 +1,4 @@
-image: selenium/standalone-chrome:latest
+image: python:3.12-slim
 
 pipelines:
   default:
@@ -7,14 +7,16 @@ pipelines:
         caches:
           - pip
         script:
-          # Install sudo and necessary packages to create virtual environment
-          - apt-get update && apt-get install -y sudo python3.12-venv python3-pip
-          # Install dependencies and set up virtual environment
-          - sudo python3 -m venv venv
+          # Install dependencies for Chrome and other tools
+          - apt-get update && apt-get install -y wget unzip chromium-driver chromium libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2 fonts-liberation libnspr4 libnss3 libx11-xcb1 libgbm1
+          # Install Python dependencies
+          - python3 -m venv venv
           - source venv/bin/activate  # Activate the virtual environment
           - pip install --upgrade pip
-          - pip install -r tests/requirements.txt
+          - pip install -r tests/requirements.txt  # Install dependencies from requirements.txt
+          # Create results directory
           - mkdir -p results
+          # Run Robot Framework tests
           - robot --outputdir results/ tests/
         artifacts:
           - results/**
