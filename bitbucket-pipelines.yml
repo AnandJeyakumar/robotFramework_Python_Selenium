@@ -21,10 +21,6 @@ pipelines:
           # Install Chrome Dependencies
           - apt-get install -y libxss1 libnss3 fonts-liberation libgdk-pixbuf2.0-0 libnspr4 libcurl4
 
-
-          # Install ChromeDriver (with chromedriver-autoinstaller)
-          - pip install chromedriver-autoinstaller
-
           # Create virtual environment
           - python3 -m venv venv
 
