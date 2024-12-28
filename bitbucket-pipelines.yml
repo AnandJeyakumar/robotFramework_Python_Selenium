@@ -20,7 +20,7 @@ pipelines:
             libx11-xcb1 \
             libgbm1
           - pip install --upgrade pip  # Ensure pip is up to date
-          - pip install -r requirements.txt  # Install dependencies (if you have a requirements.txt)
+          - pip install -r tests/requirements.txt  # Install dependencies (if you have a requirements.txt)
           - mkdir -p results  # Create results directory
           - robot --outputdir results/ tests/  # Run the tests
         artifacts:
