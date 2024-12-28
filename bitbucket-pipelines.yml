@@ -7,18 +7,14 @@ pipelines:
         caches:
           - pip
         script:
-          # Install necessary packages to create virtual environment
-          - apt-get update && apt-get install -y python3.12 python3.12-venv python3-pip
-          # Create and activate a virtual environment
-          - python3 -m venv venv
+          # Install sudo and necessary packages to create virtual environment
+          - apt-get update && apt-get install -y sudo python3.12-venv python3-pip
+          # Install dependencies and set up virtual environment
+          - sudo python3 -m venv venv
           - source venv/bin/activate  # Activate the virtual environment
-          # Upgrade pip within the virtual environment
           - pip install --upgrade pip
-          # Install dependencies from requirements.txt
           - pip install -r tests/requirements.txt
-          # Create a results directory
           - mkdir -p results
-          # Run the Robot Framework tests
           - robot --outputdir results/ tests/
         artifacts:
           - results/**
