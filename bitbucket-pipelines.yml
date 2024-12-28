@@ -1,4 +1,4 @@
-image: ultimatedogg/docker-robot-framework
+image: python:3.9
 
 pipelines:
   default:
