@@ -7,13 +7,14 @@ pipelines:
         caches:
           - pip
         script:
-          # Install necessary dependencies for Chrome and headless testing
+          # Update package list
           - apt-get update
+
+          # Install dependencies and Chrome for headless testing
           - apt-get install -y wget gnupg xvfb libgl1-mesa-glx libegl1-mesa \
-              libxss1 libappindicator3-1 libindicator7 fonts-liberation libnss3 \
-              libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 \
-              libatk-bridge2.0-0 libatk1.0-0 libcups2 libxcomposite1 libxrandr2 \
-              libxi6 libxtst6 libnss3-dev libcurl4
+              libxss1 libappindicator3-1 fonts-liberation libnss3 \
+              libnspr4 xdg-utils libgbm-dev libasound2 libcups2 libxcomposite1 \
+              libxrandr2 libxtst6 libcurl4 google-chrome-stable
 
           # Install Google Chrome from the official repository
           - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
