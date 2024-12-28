@@ -1,4 +1,4 @@
-image: ultimatedogg/docker-robot-framework
+image: ubuntu:latest
 
 pipelines:
   default:
@@ -7,18 +7,18 @@ pipelines:
         caches:
           - pip
         script:
-          # Update package list and install necessary utilities (wget, unzip)
+          # Update and install required dependencies
           - apt-get update && apt-get install -y wget unzip
 
-          # Install Python dependencies from the requirements.txt file
-          - pip install -r tests/requirements.txt
+          # Install Python dependencies
+          - apt-get install -y python3 python3-pip
+          - pip install --upgrade pip
+          - pip install -r tests/requirements.txt  # Use the provided path for requirements.txt
 
-          # Create a directory for storing test results
+          # Create results directory
           - mkdir -p results
 
-          # Run Robot Framework tests and save the results in the 'results' directory
+          # Run Robot Framework tests
           - robot --outputdir results/ tests/
-
         artifacts:
-          # Store all files in the 'results' directory as artifacts
           - results/**
