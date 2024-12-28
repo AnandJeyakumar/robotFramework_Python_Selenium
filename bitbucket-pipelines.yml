@@ -1,4 +1,4 @@
-image: python:3.9
+image: selenium/standalone-chrome:latest
 
 pipelines:
   default:
@@ -7,18 +7,6 @@ pipelines:
         caches:
           - pip
         script:
-          - apt-get update && apt-get install -y wget unzip \
-            chromium-browser \
-            chromium-chromedriver \
-            libgdk-pixbuf2.0-0 \
-            libxss1 \
-            libappindicator3-1 \
-            libasound2 \
-            fonts-liberation \
-            libnspr4 \
-            libnss3 \
-            libx11-xcb1 \
-            libgbm1
           - pip install --upgrade pip  # Ensure pip is up to date
           - pip install -r tests/requirements.txt  # Install dependencies (if you have a requirements.txt)
           - mkdir -p results  # Create results directory
