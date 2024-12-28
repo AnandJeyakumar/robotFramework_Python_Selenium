@@ -7,47 +7,20 @@ pipelines:
         caches:
           - pip
         script:
-          # Install dependencies for Chrome and other tools
-          - apt-get update && apt-get install -y wget unzip chromium-driver chromium libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2 fonts-liberation libnspr4 libnss3 libx11-xcb1 libgbm1
-
-          # Install Chrome for Selenium tests
+          # Install necessary dependencies for Chrome and headless testing
           - apt-get update
-          - apt-get install -y wget gnupg
+          - apt-get install -y wget gnupg xvfb libgl1-mesa-glx libegl1-mesa \
+              libxss1 libappindicator3-1 libindicator7 fonts-liberation libnss3 \
+              libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 \
+              libatk-bridge2.0-0 libatk1.0-0 libcups2 libxcomposite1 libxrandr2 \
+              libxi6 libxtst6 libnss3-dev libcurl4
+
+          # Install Google Chrome from the official repository
           - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
           - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
           - apt-get update
           - apt-get install -y google-chrome-stable
           - google-chrome-stable --version
-
-          # Install Chrome Dependencies
-          - apt-get update
-          - apt-get install -y \
-              libxss1 \
-              libappindicator3-1 \
-              libindicator7 \
-              fonts-liberation \
-              libnss3 \
-              libgdk-pixbuf2.0-0 \
-              libnspr4 \
-              xdg-utils \
-              libgbm-dev \
-              libasound2 \
-              libatk-bridge2.0-0 \
-              libatk1.0-0 \
-              libcups2 \
-              libxcomposite1 \
-              libxrandr2 \
-              libxi6 \
-              libxtst6 \
-              libnss3-dev \
-              libcurl4 \
-              google-chrome-stable
-
-          # Install xvfb (X Virtual FrameBuffer)
-          - apt-get install -y xvfb
-
-          # Ensure Chromium works in a headless environment
-          - apt-get install -y libgl1-mesa-glx libegl1-mesa
 
           # Set the CHROME_BIN environment variable to the path of the Chromium binary
           - export CHROME_BIN=/usr/bin/google-chrome
