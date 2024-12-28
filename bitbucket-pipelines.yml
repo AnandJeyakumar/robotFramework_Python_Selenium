@@ -19,7 +19,10 @@ pipelines:
           - apt-get install -y google-chrome-stable
 
           # Install Chrome Dependencies
-          - apt-get install -y libxss1 libnss3 fonts-liberation libgdk-pixbuf2.0-0 libnspr4 libcurl4
+          - apt-get install -y libxss1 libnss3 fonts-liberation libgdk-pixbuf2.0-0 libnspr4 libcurl4 libatk-bridge2.0-0 libappindicator3-1
+
+          # Install xvfb (X Virtual FrameBuffer)
+          - apt-get install -y xvfb
 
           # Create virtual environment
           - python3 -m venv venv
@@ -34,8 +37,17 @@ pipelines:
           # Create results directory
           - mkdir -p results
 
-          # Run Robot Framework tests
-          - robot --outputdir results/ tests/
+          # Run UI Tests in Headless Mode with xvfb
+          - export CHROME_BIN=/usr/bin/google-chrome
+          - export HEADLESS=true
+          - xvfb-run --auto-servernum robot --outputdir results \
+            --variable CHROME_BIN:/usr/bin/google-chrome \
+            --variable HEADLESS:true \
+            --variable DISABLE_SANDBOX:true \
+            --variable REMOTE_DEBUGGING_PORT:9222 \
+            --variable DISABLE_DEV_SHM_USAGE:true \
+            --variable DISABLE_GPU:true \
+            --variable DISABLE_SOFTWARE_RASTERIZER:true tests/
 
         artifacts:
           - results/**
