@@ -1,4 +1,4 @@
-image: robotframework/robot-framework-python:latest
+image: ultimatedogg/docker-robot-framework
 
 pipelines:
   default:
