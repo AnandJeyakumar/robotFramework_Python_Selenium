@@ -8,22 +8,30 @@ pipelines:
           - pip
         script:
           # Update and install required dependencies
-          - apt-get update && apt-get install -y wget unzip python3-venv python3-pip curl
+          - apt-get update && apt-get install -y wget unzip python3-venv python3-pip curl gnupg
 
-          # Install Chrome and dependencies (headless)
+          # Add the Google Chrome repository
+          - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          - apt-get update
+
+          # Install Google Chrome Stable
           - apt-get install -y google-chrome-stable
+
+          # Install Chrome Dependencies
           - apt-get install -y libxss1 libappindicator3-1 fonts-liberation libnss3 libgdk-pixbuf2.0-0 libnspr4 xdg-utils libgbm-dev libasound2 libcups2 libxcomposite1 libxrandr2 libxtst6 libcurl4
 
-          # Create a virtual environment
+          # Install ChromeDriver (with chromedriver-autoinstaller)
+          - pip install chromedriver-autoinstaller
+
+          # Create virtual environment
           - python3 -m venv venv
 
-          # Activate the virtual environment
+          # Activate virtual environment
           - source venv/bin/activate
 
-          # Upgrade pip inside the virtual environment
+          # Install dependencies
           - pip install --upgrade pip
-
-          # Install dependencies from the requirements file
           - pip install -r tests/requirements.txt  # Ensure chromedriver-autoinstaller is in requirements.txt
 
           # Create results directory
