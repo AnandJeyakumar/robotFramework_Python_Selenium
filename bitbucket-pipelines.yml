@@ -1,5 +1,4 @@
-image: ultimatedogg/docker-robot-framework , selenium/standalone-chrome
-
+image: ultimatedogg/docker-robot-framework
 
 pipelines:
   default:
