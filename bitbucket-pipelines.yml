@@ -8,8 +8,8 @@ pipelines:
           - pip
         script:
           - apt-get update && apt-get install -y wget unzip \
-            chromium-driver \
-            chromium \
+            chromium-browser \
+            chromium-chromedriver \
             libgdk-pixbuf2.0-0 \
             libxss1 \
             libappindicator3-1 \
