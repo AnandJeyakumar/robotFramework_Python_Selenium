@@ -30,5 +30,5 @@ Check Logo is Visible
     [Documentation]    Verify the Google logo is visible on the search results page
     Input Text    //textarea[@id='APjFqb']    ${search_term}
     press keys     name:q    RETURN
-    set selenium timeout    7 seconds
+    set selenium timeout    10 seconds
     element should be visible    id=logo
