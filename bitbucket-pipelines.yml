@@ -7,12 +7,8 @@ pipelines:
         caches:
           - pip
         script:
-          - pip install --upgrade pip  # Upgrading pip
-          # If you need to install system dependencies, you may need to use a different method.
-          # If you're using an Alpine-based image, use apk instead of apt-get
-          - apk update && apk add wget unzip  # If using Alpine Linux
-          - pip install -r requirements.txt
-          - mkdir -p results
-          - robot --outputdir results/ tests/
+          - pip install --upgrade pip  # Ensure pip is up to date
+          - mkdir -p results  # Create results directory
+          - robot --outputdir results/ tests/  # Run the tests
         artifacts:
           - results/**
