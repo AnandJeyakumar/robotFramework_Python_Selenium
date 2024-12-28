@@ -13,6 +13,9 @@ pipelines:
           # Ensure Chromium works in a headless environment
           - apt-get install -y libgl1-mesa-glx libegl1-mesa
 
+          # Set the CHROME_BIN environment variable to the path of the Chromium binary
+          - export CHROME_BIN=/usr/bin/chromium
+
           # Install Python dependencies
           - python3 -m venv venv
           - source venv/bin/activate  # Activate the virtual environment
