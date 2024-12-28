@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-28T19:12:06.032544" rpa="false" schemaversion="5">
+<suite id="s1" name="Ui Tests" source="C:\robotFramework\tests\ui_tests.robot">
+<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
+<msg time="2024-12-28T19:12:06.305611" level="INFO">Opening browser 'firefox' to base url 'https://www.google.com/?hl=en'.</msg>
+<arg>https://www.google.com/?hl=en</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-12-28T19:12:06.305611" elapsed="8.610618"/>
+</kw>
+<test id="s1-t1" name="Search Google and Validate Results" line="13">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:14.918224" level="INFO">Typing text 'Robot Framework' into text field '//textarea[@id='APjFqb']'.</msg>
+<arg>//textarea[@id='APjFqb']</arg>
+<arg>${search_term}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-28T19:12:14.917227" elapsed="0.122766"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:15.041989" level="INFO">Sending key(s) ('RETURN',) to name:q element.</msg>
+<msg time="2024-12-28T19:12:15.398792" level="INFO">Pressing special key RETURN to element.</msg>
+<msg time="2024-12-28T19:12:15.399791" level="INFO">Releasing special key RETURN.</msg>
+<arg>name:q</arg>
+<arg>RETURN</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.040991" elapsed="0.368909"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>4 seconds</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.410897" elapsed="0.004001"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>//div[text()='Robot Framework']</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.415884" elapsed="0.485981"/>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:15.945947" level="INFO">Element '//div[text()='Robot Framework']' is displayed.</msg>
+<arg>//div[text()='Robot Framework']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.901865" elapsed="0.044082"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-28T19:12:15.945947" level="INFO">Found Robot Framework in the Google Search Results</msg>
+<arg>Found ${search_term} in the Google Search Results</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.945947" elapsed="0.000000"/>
+</kw>
+<doc>Search for Google and Validate Search Results</doc>
+<status status="PASS" start="2024-12-28T19:12:14.916229" elapsed="1.029718"/>
+</test>
+<test id="s1-t2" name="Verify First Result Contain Search Items" line="23">
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:15.957951" level="INFO">${FirstText} = Robot Framework</msg>
+<var>${FirstText}</var>
+<arg>(//div[@id='search']//h3)[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.945947" elapsed="0.012004"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${FirstText}</arg>
+<arg>${search_term}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.957951" elapsed="0.000000"/>
+</kw>
+<doc>Verify the first search result contains the specified search items</doc>
+<status status="PASS" start="2024-12-28T19:12:15.945947" elapsed="0.012004"/>
+</test>
+<test id="s1-t3" name="Check Logo is Visible" line="29">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:15.957951" level="INFO">Typing text 'Robot Framework' into text field '//textarea[@id='APjFqb']'.</msg>
+<arg>//textarea[@id='APjFqb']</arg>
+<arg>${search_term}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-28T19:12:15.957951" elapsed="0.059077"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:16.017028" level="INFO">Sending key(s) ('RETURN',) to name:q element.</msg>
+<msg time="2024-12-28T19:12:16.304240" level="INFO">Pressing special key RETURN to element.</msg>
+<msg time="2024-12-28T19:12:16.304240" level="INFO">Releasing special key RETURN.</msg>
+<arg>name:q</arg>
+<arg>RETURN</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-12-28T19:12:16.017028" elapsed="0.301703"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>7 seconds</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2024-12-28T19:12:16.318731" elapsed="0.005520"/>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:12:16.335259" level="INFO">Element 'id=logo' is displayed.</msg>
+<arg>id=logo</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:12:16.324251" elapsed="0.011008"/>
+</kw>
+<doc>Verify the Google logo is visible on the search results page</doc>
+<status status="PASS" start="2024-12-28T19:12:15.957951" elapsed="0.377308"/>
+</test>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-12-28T19:12:16.335259" elapsed="4.933820"/>
+</kw>
+<status status="PASS" start="2024-12-28T19:12:06.033507" elapsed="15.235572"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="Ui Tests">Ui Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
