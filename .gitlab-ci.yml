@@ -1,0 +1,43 @@
+image: ubuntu:latest
+
+stages:
+  - test
+
+my_test_job:
+  stage: test
+  script:
+    - apt-get update && apt-get install -y wget unzip python3-venv python3-pip curl gnupg
+
+    # Add the Google Chrome repository (without sudo)
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - apt-get update
+
+    # Install Google Chrome Stable
+    - apt-get install -y google-chrome-stable
+
+    # Install Chrome Dependencies
+    - apt-get install -y libxss1 libnss3 fonts-liberation libgdk-pixbuf2.0-0 libnspr4 libcurl4 libatk-bridge2.0-0 libappindicator3-1
+
+    # Install xvfb (X Virtual FrameBuffer)
+    - apt-get install -y xvfb
+
+    # Create virtual environment
+    - python3 -m venv venv
+
+    # Activate virtual environment
+    - source venv/bin/activate
+
+    - pip install --upgrade pip  # Upgrade pip (optional)
+    - pip install -r tests/requirements.txt
+    - mkdir -p results
+
+    # Run UI Tests in Headless Mode with xvfb
+    - export CHROME_BIN=/usr/bin/google-chrome
+    - export HEADLESS=true
+    - xvfb-run --auto-servernum robot --outputdir results --variable CHROME_BIN:/usr/bin/google-chrome --variable HEADLESS:true --variable DISABLE_SANDBOX:true --variable REMOTE_DEBUGGING_PORT:9222 --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true --variable NO_SANDBOX:true --variable DISABLE_DEV_SHM_USAGE:true --variable DISABLE_GPU:true --variable DISABLE_SOFTWARE_RASTERIZER:true tests/
+
+
+  artifacts:
+    paths:
+      - results/**

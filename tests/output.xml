@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-23T22:19:06.533305" rpa="false" schemaversion="5">
-<suite id="s1" name="Test Input" source="C:\robotFramework\tests\test_input.robot">
-<test id="s1-t1" name="Input Test Case" line="9">
-<kw name="Open Browser To Test Page">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-12-23T22:19:07.086106" level="INFO">Opening browser 'chrome' to base url 'https://testautomationpractice.blogspot.com/'.</msg>
-<arg>${url}</arg>
-<arg>${browser}</arg>
+<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2024-12-28T19:37:31.236018" rpa="false" schemaversion="5">
+<suite id="s1" name="Ui Tests" source="C:\robotFramework\tests\ui_tests.robot">
+<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
+<msg time="2024-12-28T19:37:31.512567" level="INFO">Opening browser 'firefox' to base url 'https://www.google.com/?hl=en'.</msg>
+<arg>https://www.google.com/?hl=en</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-12-23T22:19:07.086106" elapsed="4.594921"/>
+<status status="PASS" start="2024-12-28T19:37:31.512567" elapsed="14.694103"/>
 </kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>Automation Testing Practice</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2024-12-23T22:19:11.682251" elapsed="2.908218"/>
-</kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-12-23T22:19:14.591730" elapsed="0.104860"/>
-</kw>
-<status status="PASS" start="2024-12-23T22:19:07.084876" elapsed="7.611790"/>
-</kw>
+<test id="s1-t1" name="Search Google and Validate Results" line="13">
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-23T22:19:14.699968" level="INFO">Typing text 'All is well' into text field 'id=name'.</msg>
-<arg>id=name</arg>
-<arg>All is well</arg>
+<msg time="2024-12-28T19:37:46.209322" level="INFO">Typing text 'Robot Framework' into text field '//textarea[@id='APjFqb']'.</msg>
+<arg>//textarea[@id='APjFqb']</arg>
+<arg>${search_term}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-23T22:19:14.697665" elapsed="0.547576"/>
+<status status="PASS" start="2024-12-28T19:37:46.207754" elapsed="0.143689"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-12-23T22:19:15.246377" level="INFO">Typing text 'test@example.com' into text field 'id=email'.</msg>
-<arg>id=email</arg>
-<arg>test@example.com</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-23T22:19:15.246377" elapsed="0.399706"/>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:37:46.352441" level="INFO">Sending key(s) ('RETURN',) to name:q element.</msg>
+<msg time="2024-12-28T19:37:46.661256" level="INFO">Pressing special key RETURN to element.</msg>
+<msg time="2024-12-28T19:37:46.661256" level="INFO">Releasing special key RETURN.</msg>
+<arg>name:q</arg>
+<arg>RETURN</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-12-28T19:37:46.351443" elapsed="0.330762"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-12-23T22:19:20.647411" level="INFO">Slept 5 seconds.</msg>
-<arg>5s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-12-23T22:19:15.647191" elapsed="5.000220"/>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>4 seconds</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2024-12-28T19:37:46.683250" elapsed="0.002137"/>
 </kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2024-12-23T22:19:20.647411" level="INFO">${title} = Automation Testing Practice</msg>
-<var>${title}</var>
-<arg>Automation Testing Practice</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2024-12-23T22:19:20.647411" elapsed="0.000000"/>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>//div[text()='Robot Framework']</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:37:46.685387" elapsed="0.566190"/>
 </kw>
-<kw name="Title Should Be" owner="SeleniumLibrary">
-<msg time="2024-12-23T22:19:20.659551" level="INFO">Page title is 'Automation Testing Practice'.</msg>
-<arg>${title}</arg>
-<doc>Verifies that the current page title equals ``title``.</doc>
-<status status="PASS" start="2024-12-23T22:19:20.647411" elapsed="0.012140"/>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:37:47.338644" level="INFO">Element '//div[text()='Robot Framework']' is displayed.</msg>
+<arg>//div[text()='Robot Framework']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.251577" elapsed="0.087067"/>
 </kw>
-<kw name="Clear Element Text" owner="SeleniumLibrary">
-<arg>id=email</arg>
-<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" start="2024-12-23T22:19:20.659551" elapsed="0.115623"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-28T19:37:47.340018" level="INFO">Found Robot Framework in the Google Search Results</msg>
+<arg>Found ${search_term} in the Google Search Results</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.340018" elapsed="0.000998"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-12-23T22:19:23.777486" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-12-23T22:19:20.775174" elapsed="3.002312"/>
+<doc>Search for Google and Validate Search Results</doc>
+<status status="PASS" start="2024-12-28T19:37:46.207754" elapsed="1.133262"/>
+</test>
+<test id="s1-t2" name="Verify First Result Contain Search Items" line="23">
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:37:47.383027" level="INFO">${FirstText} = Robot Framework</msg>
+<var>${FirstText}</var>
+<arg>(//div[@id='search']//h3)[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.346934" elapsed="0.036093"/>
 </kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${FirstText}</arg>
+<arg>${search_term}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.384026" elapsed="0.001068"/>
+</kw>
+<doc>Verify the first search result contains the specified search items</doc>
+<status status="PASS" start="2024-12-28T19:37:47.343489" elapsed="0.041605"/>
+</test>
+<test id="s1-t3" name="Check Logo is Visible" line="29">
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>7 seconds</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.387639" elapsed="0.003365"/>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-12-28T19:37:47.407246" level="INFO">Element '//a[@aria-label="Sign in"]' is displayed.</msg>
+<arg>//a[@aria-label="Sign in"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2024-12-28T19:37:47.392261" elapsed="0.014985"/>
+</kw>
+<doc>Verify the Sign In is visible on the search results page</doc>
+<status status="PASS" start="2024-12-28T19:37:47.386092" elapsed="0.021154"/>
+</test>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2024-12-23T22:19:23.777486" elapsed="2.354113"/>
+<status status="PASS" start="2024-12-28T19:37:47.408245" elapsed="2.853085"/>
 </kw>
-<status status="PASS" start="2024-12-23T22:19:07.083620" elapsed="19.050911"/>
-</test>
-<status status="PASS" start="2024-12-23T22:19:06.536740" elapsed="19.597791"/>
+<status status="PASS" start="2024-12-28T19:37:31.238089" elapsed="19.023241"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Test Input">Test Input</stat>
+<stat pass="3" fail="0" skip="0" id="s1" name="Ui Tests">Ui Tests</stat>
 </suite>
 </statistics>
 <errors>

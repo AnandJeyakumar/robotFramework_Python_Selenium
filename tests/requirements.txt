@@ -1,0 +1,8 @@
+robotframework==7.0
+robotframework-seleniumlibrary==6.2.0
+selenium==4.27.1
+pytest==8.1.1
+pytest-html==4.1.1
+pytest-mock==3.14.0
+pytest-xdist==3.5.0
+chromedriver-autoinstaller==0.6.4
