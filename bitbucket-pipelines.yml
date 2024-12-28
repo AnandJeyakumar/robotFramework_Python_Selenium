@@ -1,4 +1,4 @@
-image: python:3.12-slim
+image: ultimatedogg/docker-robot-framework
 
 pipelines:
   default:
@@ -7,36 +7,18 @@ pipelines:
         caches:
           - pip
         script:
-          # Update package list
-          - apt-get update
+          # Update package list and install necessary utilities (wget, unzip)
+          - apt-get update && apt-get install -y wget unzip
 
-          # Install dependencies and Chrome for headless testing
-          - apt-get install -y wget gnupg xvfb libgl1-mesa-glx libegl1-mesa \
-              libxss1 libappindicator3-1 fonts-liberation libnss3 \
-              libnspr4 xdg-utils libgbm-dev libasound2 libcups2 libxcomposite1 \
-              libxrandr2 libxtst6 libcurl4 google-chrome-stable
+          # Install Python dependencies from the requirements.txt file
+          - pip install -r requirements.txt
 
-          # Install Google Chrome from the official repository
-          - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-          - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          - apt-get update
-          - apt-get install -y google-chrome-stable
-          - google-chrome-stable --version
-
-          # Set the CHROME_BIN environment variable to the path of the Chromium binary
-          - export CHROME_BIN=/usr/bin/google-chrome
-
-          # Install Python dependencies
-          - python3 -m venv venv
-          - source venv/bin/activate  # Activate the virtual environment
-          - pip install --upgrade pip
-          - pip install -r tests/requirements.txt  # Install dependencies from requirements.txt
-
-          # Create results directory
+          # Create a directory for storing test results
           - mkdir -p results
 
-          # Run Robot Framework tests with no-sandbox flag in headless mode
-          - robot --variable CHROME_OPTIONS:"--headless --no-sandbox --disable-dev-shm-usage" --outputdir results/ tests/
+          # Run Robot Framework tests and save the results in the 'results' directory
+          - robot --outputdir results/ tests/
 
         artifacts:
+          # Store all files in the 'results' directory as artifacts
           - results/**
