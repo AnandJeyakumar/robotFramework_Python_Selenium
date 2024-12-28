@@ -1,4 +1,4 @@
-image: ppodgorsek/docker-robot-framework
+image: robotframework/robotframework
 
 pipelines:
   default:
