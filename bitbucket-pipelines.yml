@@ -9,14 +9,21 @@ pipelines:
         script:
           # Install dependencies for Chrome and other tools
           - apt-get update && apt-get install -y wget unzip chromium-driver chromium libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2 fonts-liberation libnspr4 libnss3 libx11-xcb1 libgbm1
+
+          # Ensure Chromium works in a headless environment
+          - apt-get install -y libgl1-mesa-glx libegl1-mesa
+
           # Install Python dependencies
           - python3 -m venv venv
           - source venv/bin/activate  # Activate the virtual environment
           - pip install --upgrade pip
           - pip install -r tests/requirements.txt  # Install dependencies from requirements.txt
+
           # Create results directory
           - mkdir -p results
+
           # Run Robot Framework tests
           - robot --outputdir results/ tests/
+
         artifacts:
           - results/**
